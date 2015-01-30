@@ -1,0 +1,19 @@
+Notes from 1/30
+
+Components of The Database:
+Email
+Username (or Display Name?)
+Password
+-----
+Class Name
+Class Number
+Professor
+(Maybe Meeting Times and Section Number)
+
+
+
+We need to look for Web Hosting!
+-Hosting w/ a tomcat server or JDBC capabilities
+-Look into hosting that could be linked to GitHub
+
+
