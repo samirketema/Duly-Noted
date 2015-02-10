@@ -1,0 +1,32 @@
+User
+Email (required)- Primary Key
+Password (required & store encrypted version)
+FirstName
+LastName
+DisplayName (default: email, optional)
+Banned (boolean)
+
+Course
+Subject- part of composite Primary Key
+CourseNumber- part of composite Primary Key
+CourseName
+
+Section
+Subject- Foreign Key to Course table
+CourseNumber- Foreign Key to Course table
+SectionNumber- Primary Key
+ProfessorID
+
+Note
+NoteId- Primary Key
+Section- Foreign Key to Section table
+Email- Foreign Key to User table
+Source (link to actual note)
+Flagged (integer; how many times note was flagged)
+UpVoteCounter
+DownVoteCounter
+
+Professor
+ProfessorId- PrimaryKey
+FirstName
+LastName
