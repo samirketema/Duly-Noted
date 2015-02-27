@@ -24,8 +24,10 @@ public partial class Member : System.Web.UI.Page
                 //get the information
                 DulyDBDataContext dc = new DulyDBDataContext();
                 var query = (from u in dc.Users
-                            where u.displayName == Session["dulyNoted"].ToString()
-                            select u).First();
+                             where u.userId == int.Parse(Session["dulyNoted"].ToString())
+                             select u).First();
+
+                // display info for fun -- replace by actual features later
                 lblDisplayname.Text = query.displayName + " last login: " +  query.lastLoginDate.Value.ToShortDateString() ;
             }
 
@@ -37,13 +39,14 @@ public partial class Member : System.Web.UI.Page
     protected void lnkLogOut_Click(object sender, EventArgs e)
     {
         Session.Abandon();
-        Response.Redirect("~/Default.aspx");
+        Response.Redirect("~/LogoutConfirm.aspx");
     }
+
     protected void lnkDel_Click(object sender, EventArgs e)
     {
         DulyDBDataContext dc = new DulyDBDataContext();
         var query = (from u in dc.Users
-                     where u.displayName == Session["dulyNoted"].ToString()
+                     where u.userId == int.Parse(Session["dulyNoted"].ToString())
                      select u).First();
 
         //delete account
@@ -52,11 +55,16 @@ public partial class Member : System.Web.UI.Page
 
         //abandon session
         Session.Abandon();
-        Response.Redirect("~/Default.aspx");
+        Response.Redirect("~/LogoutConfirm.aspx");
 
     }
+
     protected void lnkReturn_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Default.aspx");
+    }
+    protected void lnkChangePass_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/ChangePassword.aspx");
     }
 }

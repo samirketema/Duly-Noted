@@ -14,6 +14,11 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if(Session["dulyNoted"] != null)
+        {
+            //redirect to member page
+            Response.Redirect("~/Member.aspx");
+        }
     }
     
     protected void lnkReturn_Click(object sender, EventArgs e)
@@ -25,6 +30,7 @@ public partial class Login : System.Web.UI.Page
     {
         Response.Redirect("~/Register.aspx");
     }
+
     protected void btnLogin_Click(object sender, EventArgs e)
     {
         DulyDBDataContext dc = new DulyDBDataContext();
@@ -47,7 +53,7 @@ public partial class Login : System.Web.UI.Page
                 else //already activate
                 {
                     //using session for secured page 
-                    Session["dulyNoted"] = user.displayName;
+                    Session["dulyNoted"] = user.userId;
 
                     //update last login date
                     user.lastLoginDate = DateTime.Now;
@@ -58,14 +64,16 @@ public partial class Login : System.Web.UI.Page
                 }
             }
             else
+            {
                 lblError.Text = "Please check your Email / password";
+                lnkForgotPass.Visible = true;
+
+            }
         }
-        else
-        {
-            if (txtEmail.Text.Trim() == "")
-                lblEmailReq.Text = "Please Enter Your Email";
-            if (txtPassword.Text.Trim() != "")
-                lblPassReq.Text = "Please Enter Your Password";
-        }
+    }
+
+    protected void lnkForgotPass_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/ResetPassword.aspx");
     }
 }

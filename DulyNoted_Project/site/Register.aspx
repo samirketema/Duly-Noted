@@ -9,14 +9,18 @@
             width: 258px;
         }
     </style>
+
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
 </head>
 <body>
     <form id="form1" runat="server">
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
-            <th colspan="3">
-                Registration
-            </th>
+            <td></td>
+            <td><h1>Registration</h1></td>
+            <td></td>
         </tr>
          <tr>
             <td class="auto-style1">
@@ -27,9 +31,9 @@
             &nbsp;*</td>
             <td>
                 &nbsp;<asp:RequiredFieldValidator ErrorMessage="Enter Email" Display="Dynamic" ForeColor="Red"
-                    ControlToValidate="txtEmail" runat="server" ID="RequiredFieldValidator3" />
+                    ControlToValidate="txtEmail" runat="server" ID="RequiredFieldValidator3" ValidationGroup="grpSubmit" />
                 &nbsp;<asp:RegularExpressionValidator runat="server" Display="Dynamic" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
-                    ControlToValidate="txtEmail" ForeColor="Red" ErrorMessage="Invalid email address." ID="RegularExpressionValidator1" />
+                    ControlToValidate="txtEmail" ForeColor="Red" ErrorMessage="Invalid email address." ID="RegularExpressionValidator1" ValidationGroup="grpSubmit" />
             </td>
         </tr>
         
@@ -41,7 +45,7 @@
                 <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" Width="300px" />
             &nbsp;*</td>
             <td>
-                &nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" ErrorMessage="Enter Password" ForeColor="Red"></asp:RequiredFieldValidator>
+                &nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" ErrorMessage="Enter Password" ForeColor="Red" Display="Dynamic" ValidationGroup="grpSubmit"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -52,8 +56,8 @@
                 <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" Width="300px" />
             &nbsp;*</td>
             <td>
-                &nbsp;<asp:CompareValidator ErrorMessage="Passwords do not match." ForeColor="Red" ControlToCompare="txtPassword"
-                    ControlToValidate="txtConfirmPassword" runat="server" ID="CompareValidator1" />
+                <asp:CompareValidator ErrorMessage="Passwords do not match." ForeColor="Red" ControlToCompare="txtPassword" ControlToValidate="txtConfirmPassword" runat="server" ID="CompareValidator1" Display="Dynamic" ValidationGroup="grpSubmit" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtConfirmPassword" ErrorMessage="Enter Confirm Password" ForeColor="Red" Display="Dynamic" ValidationGroup="grpSubmit"/>
             </td>
         </tr>
         <tr>
@@ -63,7 +67,7 @@
                 <asp:TextBox ID="txtDisplayName" runat="server" Width="300px" />
             &nbsp;*</td>
             <td>
-                &nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter Display Name" ControlToValidate="txtDisplayName" ForeColor="Red"></asp:RequiredFieldValidator>
+                &nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter Display Name" ControlToValidate="txtDisplayName" ForeColor="Red" Display="Dynamic" ValidationGroup="grpSubmit"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -73,7 +77,7 @@
                 <asp:TextBox ID="txtFirstName" runat="server" Width="300px" />
             &nbsp;*</td>
             <td>
-                &nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Enter First Name" ControlToValidate="txtFirstName" ForeColor="Red"></asp:RequiredFieldValidator>
+                &nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Enter First Name" ControlToValidate="txtFirstName" ForeColor="Red" Display="Dynamic" ValidationGroup="grpSubmit"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -83,7 +87,7 @@
                 <asp:TextBox ID="txtLastName" runat="server" Width="300px" />
             &nbsp;*</td>
             <td>
-                &nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Enter Last Name" ControlToValidate="txtLastName" ForeColor="Red"></asp:RequiredFieldValidator>
+                &nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Enter Last Name" ControlToValidate="txtLastName" ForeColor="Red" Display="Dynamic" ValidationGroup="grpSubmit"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -95,12 +99,13 @@
             <td class="auto-style1">
             </td>
             <td>
-                <asp:Button Text="Submit" runat="server" OnClick="RegisterUser" Width="160px" />
+                <asp:Button Text="Submit" runat="server" OnClick="RegisterUser" Width="160px" ValidationGroup="grpSubmit" />
             </td>
             <td>
             </td>
         </tr>
     </table>
+        <asp:LinkButton ID="lnkReturn" runat="server" OnClick="lnkReturn_Click">Return Home</asp:LinkButton>
     </form>
 </body>
 </html>

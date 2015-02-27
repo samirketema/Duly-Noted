@@ -21,9 +21,11 @@
         <br />
         <br />
         <asp:LinkButton ID="lnkDel" runat="server" OnClientClick="return confirm('Are you sure?');" OnClick="lnkDel_Click">Delete Account</asp:LinkButton>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:LinkButton ID="lnkChangePass" runat="server" OnClick="lnkChangePass_Click">Change Password</asp:LinkButton>
         <br />
         <br />
-        <asp:LinkButton ID="lnkReturn" runat="server" >Return Home</asp:LinkButton>
+        <asp:LinkButton ID="lnkReturn" runat="server" OnClick="lnkReturn_Click" >Return Home</asp:LinkButton>
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:LinkButton ID="lnkLogOut" runat="server" OnClick="lnkLogOut_Click">Logout</asp:LinkButton>

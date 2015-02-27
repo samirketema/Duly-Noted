@@ -16,17 +16,19 @@
         </tr>
         <tr>
             <td>Email: </td>
-            <td><asp:TextBox runat="server" id="txtEmail" Width="300px"/>  </td>
-            <td><asp:Label runat="server" ID="lblEmailReq" ForeColor="Red" /></td>
+            <td><asp:TextBox runat="server" id="txtEmail" Width="250px"/>  </td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td>Password: </td>
-            <td><asp:TextBox runat="server" id="txtPassword" Width="300px" TextMode="Password"/>  </td>
-            <td><asp:Label runat="server" ID="lblPassReq" ForeColor="Red" /></td>
+            <td><asp:TextBox runat="server" id="txtPassword" Width="250px" TextMode="Password"/>  </td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td></td>
-            <td align="center"> <asp:Label runat="server" ID="lblError">  </asp:Label></td>
+            <td align="center"> <asp:Label runat="server" ID="lblError">  </asp:Label>
+                <asp:LinkButton ID="lnkForgotPass" runat="server" OnClick="lnkForgotPass_Click" Visible="False">Forgot Password?</asp:LinkButton>
+            </td>
             <td></td>
         </tr>
         <tr>

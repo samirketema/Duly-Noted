@@ -5,11 +5,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-//sql namespace
-using System.Data;
-using System.Configuration;
-using System.Data.SqlClient;
-
 //email verification
 using System.Net.Mail;
 using System.Net;
@@ -19,6 +14,11 @@ public partial class Register : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
+    }
+
+    protected void lnkReturn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Default.aspx");
     }
 
     //register button 
@@ -103,4 +103,5 @@ public partial class Register : System.Web.UI.Page
             smtp.Send(mm);
         }
     }
+
 }
