@@ -9,12 +9,24 @@
 <body>
     <form id="form1" runat="server">
     <h1>Member Page</h1>
-    <div id="div1" runat="server">
+    <div id="div1" runat="server" visible="False">
         If you see this text, you are logged in       
     
         <br />
-        It means the authentication was successful.<br /><br />
-        <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Return Home</asp:LinkButton>
+        It means the authentication was successful.<br />
+        Want more evident?
+        <br />
+        Your displayname is:
+        <asp:Label ID="lblDisplayname" runat="server"></asp:Label>
+        <br />
+        <br />
+        <asp:LinkButton ID="lnkDel" runat="server" OnClientClick="return confirm('Are you sure?');" OnClick="lnkDel_Click">Delete Account</asp:LinkButton>
+        <br />
+        <br />
+        <asp:LinkButton ID="lnkReturn" runat="server" >Return Home</asp:LinkButton>
+    
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:LinkButton ID="lnkLogOut" runat="server" OnClick="lnkLogOut_Click">Logout</asp:LinkButton>
     
     </div>
     </form>

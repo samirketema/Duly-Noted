@@ -24,72 +24,56 @@ public partial class Register : System.Web.UI.Page
     //register button 
     protected void RegisterUser(object sender, EventArgs e)
     {
-        int userId = 0;
-        string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString; //use str from the web.config
-        using (SqlConnection con = new SqlConnection(constr))
-        {
-            using (SqlCommand cmd = new SqlCommand("Insert_User"))
-            {
-                using (SqlDataAdapter sda = new SqlDataAdapter())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@email", txtEmail.Text.Trim());
-                    cmd.Parameters.AddWithValue("@password", txtPassword.Text.Trim());
-                    cmd.Parameters.AddWithValue("@firstName", txtFirstName.Text.Trim());
-                    cmd.Parameters.AddWithValue("@lastName", txtLastName.Text.Trim());
-                    cmd.Parameters.AddWithValue("@displayName", txtDisplayName.Text.Trim());
-                    cmd.Connection = con;
-                    con.Open();
-                    userId = Convert.ToInt32(cmd.ExecuteScalar()); //get user ID to check for existed user
-                    con.Close();
-                }
-            }
-            string message = string.Empty;
-            switch (userId)
-            {
-                case -1:
-                    message = "Display name already exists.\\nPlease choose a different Display name.";
-                    break;
-                case -2:
-                    message = "This email address has already been used.";
-                    break;
-                default:
-                    message = "Registration successful.\\n UserName:" + txtDisplayName.Text + "\\nCHECK YOUR EMAIL HAHAHAH!!";
-                    //send activation email
-                    SendActivationEmail(userId);
+        DulyDBDataContext dc = new DulyDBDataContext();
+        bool nameCheck = dc.Users.Any(u => u.displayName == txtDisplayName.Text.Trim());
+        bool emailCheck = dc.Users.Any(u => u.email == txtEmail.Text.Trim());
+       
+        string message = string.Empty;
 
-                    //redirect to confirm page
-                    string url = "~/Registration_Success.aspx?Email=" + txtEmail.Text.Trim();
-                    Response.Redirect(url);
-                    break;
-            }
-            ClientScript.RegisterStartupScript(GetType(), "alert", "alert('" + message + "');", true);
+        //check for exist user
+        if (nameCheck ) 
+                    message = "Display name already exists.\\nPlease choose a different Display name.";
+        else if (emailCheck)
+                    message = "This email address has already been used.";
+        else
+        {
+            var newUser = new User
+            {
+                email = txtEmail.Text.Trim(),
+                password = txtPassword.Text.Trim(),
+                displayName = txtDisplayName.Text.Trim(),
+                firstName = txtFirstName.Text.Trim(),
+                lastName = txtLastName.Text.Trim(),
+                createdDate = DateTime.Now
+            };
+            dc.Users.InsertOnSubmit(newUser);
+            dc.SubmitChanges();
+
+            //send activation email
+            SendActivationEmail(newUser.userId);
+
+            //redirect to confirm page
+            string url = "~/Registration_Success.aspx?Email=" + txtEmail.Text.Trim();
+            Response.Redirect(url);
         }
+        ClientScript.RegisterStartupScript(GetType(), "alert", "alert('" + message + "');", true);
+        
     }
 
 
     //activation
-    private void SendActivationEmail(int userId)
+    private void SendActivationEmail(int Id)
     {
-        string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
-        string activationCode = Guid.NewGuid().ToString(); //generate the code using Guid
-        using (SqlConnection con = new SqlConnection(constr))
+        DulyDBDataContext dc = new DulyDBDataContext();
+        string nActivationCode = Guid.NewGuid().ToString();//generate the code using Guid
+        var activation = new UserActivation
         {
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO UserActivations VALUES(@userId, @activationCode)"))
-            {
-                using (SqlDataAdapter sda = new SqlDataAdapter())
-                {
-                    cmd.CommandType = CommandType.Text;
-                    //populate data to sql table : UserActivation
-                    cmd.Parameters.AddWithValue("@userId", userId);
-                    cmd.Parameters.AddWithValue("@activationCode", activationCode);
-                    cmd.Connection = con;
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-        }
+            userId = Id,
+            activationCode = nActivationCode
+        };
+        dc.UserActivations.InsertOnSubmit(activation);
+        dc.SubmitChanges();
+
         //sending email
         using (MailMessage mm = new MailMessage("dulynoteddeveloperteam@gmail.com", txtEmail.Text))
         {
@@ -101,7 +85,7 @@ public partial class Register : System.Web.UI.Page
             body += "<br/> First Name: " + txtFirstName.Text.Trim();
             body += "<br/> Last Name: " + txtLastName.Text.Trim();
             body += "<br /><br />Please click the following link to activate your account";
-            body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace("Register.aspx", "Activation_Page.aspx?activationCode=" + activationCode) + "'>Click here to activate</a>";
+            body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace("Register.aspx", "Activation_Page.aspx?activationCode=" + nActivationCode + "'>Click here to activate</a>");
             body += "<br /><br />If you have any problems verifying your account please reply to this email";
             body += "<br /><br />Welcome to DulyNoted";
             body += "<br /> DulyNoted Development Team";

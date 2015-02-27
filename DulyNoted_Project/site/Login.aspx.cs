@@ -15,35 +15,57 @@ public partial class Login : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
     }
-
-    protected void ValidateUser(object sender, AuthenticateEventArgs e)
+    
+    protected void lnkReturn_Click(object sender, EventArgs e)
     {
-        int userId = 0;
-        string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(constr))
+        Response.Redirect("~/Default.aspx");
+    }
+
+    protected void lnkRegister_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Register.aspx");
+    }
+    protected void btnLogin_Click(object sender, EventArgs e)
+    {
+        DulyDBDataContext dc = new DulyDBDataContext();
+
+        //check if user leave blank fields
+        if (txtEmail.Text.Trim() != "" && txtPassword.Text.Trim() != "")
         {
-            using (SqlCommand cmd = new SqlCommand("Validate_User"))
+            //check if correct email and pass
+            var query = from u in dc.Users
+                        where u.email == txtEmail.Text && u.password == txtPassword.Text
+                        select u;
+            if (query.Count() > 0)
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@email", Login1.UserName);
-                cmd.Parameters.AddWithValue("@password", Login1.Password);
-                cmd.Connection = con;
-                con.Open();
-                userId = Convert.ToInt32(cmd.ExecuteScalar());
-                con.Close();
+                //get the user record (row) from Users table
+                var user = query.First();
+
+                //using userId to check if there is any record in UserActivations table
+                if (dc.UserActivations.Any(a => a.userId == user.userId))
+                    lblError.Text = "Your account has not been activated";
+                else //already activate
+                {
+                    //using session for secured page 
+                    Session["dulyNoted"] = user.displayName;
+
+                    //update last login date
+                    user.lastLoginDate = DateTime.Now;
+                    dc.SubmitChanges();
+
+                    //redirect to member page
+                    Response.Redirect("~/Member.aspx");
+                }
             }
-            switch (userId)
-            {
-                case -1:
-                    Login1.FailureText = "Username and/or password is incorrect.";
-                    break;
-                case -2:
-                    Login1.FailureText = "Account has not been activated.";
-                    break;
-                default:
-                    FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet);
-                    break;
-            }
+            else
+                lblError.Text = "Please check your Email / password";
+        }
+        else
+        {
+            if (txtEmail.Text.Trim() == "")
+                lblEmailReq.Text = "Please Enter Your Email";
+            if (txtPassword.Text.Trim() != "")
+                lblPassReq.Text = "Please Enter Your Password";
         }
     }
 }

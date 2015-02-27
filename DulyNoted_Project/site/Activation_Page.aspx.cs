@@ -16,34 +16,19 @@ public partial class Activation_Page : System.Web.UI.Page
     {
         if (!this.IsPostBack)
         {
-            string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
-            string activationCode = !string.IsNullOrEmpty(Request.QueryString["activationCode"]) ? Request.QueryString["activationCode"] : Guid.Empty.ToString();
-            using (SqlConnection con = new SqlConnection(constr))
+            string nActivationCode = !string.IsNullOrEmpty(Request.QueryString["activationCode"]) ? Request.QueryString["activationCode"] : Guid.Empty.ToString();
+            DulyDBDataContext dc = new DulyDBDataContext();
+            if (dc.UserActivations.Any(a=> a.activationCode == nActivationCode))
             {
-                //SQL query to delete the record from the UserActivation table
-                using (SqlCommand cmd = new SqlCommand("DELETE FROM UserActivations WHERE activationCode = @activationCode"))
-                {
-                    using (SqlDataAdapter sda = new SqlDataAdapter())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.AddWithValue("@activationCode", activationCode);
-                        cmd.Connection = con;
-                        con.Open();
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        con.Close();
-                        if (rowsAffected == 1)
-                        {
-                            ltMessage.Text = "Activation successful. Welcome to DulyNoted";
-                        }
-                        else
-                        {
-                            ltMessage.Text = "Invalid Activation code.";
-                        }
-                    }
-                }
+                dc.UserActivations.DeleteOnSubmit(dc.UserActivations.Single(d => d.activationCode == nActivationCode));
+                dc.SubmitChanges();
+                ltMessage.Text = "Activation successful. Welcome to DulyNoted";
             }
+            else
+                ltMessage.Text = "Invalid Activation code.";
         }
     }
+
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Default.aspx");

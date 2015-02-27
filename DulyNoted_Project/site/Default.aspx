@@ -13,14 +13,12 @@
         <h1>DulyNoted</h1>
         <p>This is Homepage</p>
         <div>
-        Welcome
-        <asp:LoginName ID="LoginName1" runat="server" Font-Bold="true" />
         <br />
     </div>
         <p>
          <asp:LinkButton ID="LinkButton1" runat="server" OnClick ="btnSignUp_Click">Register</asp:LinkButton>
             &nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:LoginStatus ID="LoginStatus1" runat="server" />
+            <asp:LinkButton ID="lnkLogin" runat="server" OnClick="lnkLogin_Click">Login</asp:LinkButton>
         </p>
     
     </div>

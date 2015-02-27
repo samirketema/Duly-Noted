@@ -1,10 +1,3 @@
--- GO is not recognized by the hosting service
-
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
 
 CREATE TABLE [dbo].[Users](
 	[userId] [int] IDENTITY (1, 1) NOT NULL,

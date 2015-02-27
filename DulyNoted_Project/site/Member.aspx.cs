@@ -10,18 +10,52 @@ public partial class Member : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!this.Page.User.Identity.IsAuthenticated)
+        if (Session["dulyNoted"] == null)
         {
-            div1.Visible = false;
             ScriptManager.RegisterStartupScript(this, this.GetType(), "alert",
                 "alert('You are not logged in');window.location ='Login.aspx';", true);
         }
+        else      //logged in
+        {
+            if (!IsPostBack)
+            {
+                div1.Visible = true;
 
-        //logged in
+                //get the information
+                DulyDBDataContext dc = new DulyDBDataContext();
+                var query = (from u in dc.Users
+                            where u.displayName == Session["dulyNoted"].ToString()
+                            select u).First();
+                lblDisplayname.Text = query.displayName + " last login: " +  query.lastLoginDate.Value.ToShortDateString() ;
+            }
+
+        }
       
 
     }
-    protected void LinkButton1_Click(object sender, EventArgs e)
+
+    protected void lnkLogOut_Click(object sender, EventArgs e)
+    {
+        Session.Abandon();
+        Response.Redirect("~/Default.aspx");
+    }
+    protected void lnkDel_Click(object sender, EventArgs e)
+    {
+        DulyDBDataContext dc = new DulyDBDataContext();
+        var query = (from u in dc.Users
+                     where u.displayName == Session["dulyNoted"].ToString()
+                     select u).First();
+
+        //delete account
+        dc.Users.DeleteOnSubmit(query);
+        dc.SubmitChanges();
+
+        //abandon session
+        Session.Abandon();
+        Response.Redirect("~/Default.aspx");
+
+    }
+    protected void lnkReturn_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Default.aspx");
     }
