@@ -43,10 +43,10 @@
         <div id="navbar" class="navbar-collapse collapse">
         <form id="form1" class="navbar-form navbar-right" role="form" runat="server">
 
-
+            <asp:LinkButton ID="LinkButton2" runat="server" OnClick ="lnkMember_Click" Text="Members Profile" CssClass="btn btn-primary"/>
             <asp:LinkButton ID="LinkButton1" runat="server" OnClick ="btnSignUp_Click" Text="Register" CssClass="btn btn-primary"/>
             <asp:LinkButton ID="lnkLogin" runat="server" OnClick="lnkLogin_Click" Text="Login" CssClass="btn btn-primary" />
-            <asp:LinkButton ID="lnkLogout" runat="server" OnClick="lnkLogout_Click" Visible="False">Logout</asp:LinkButton>
+            <asp:LinkButton ID="lnkLogout" runat="server" OnClick="lnkLogout_Click" Visible="False" Text= "Logout" CssClass="btn btn-primary" />
         </form>
         </div><!--/.navbar-collapse -->
       </div>
@@ -70,7 +70,7 @@
         <div class="col-md-4">
           <h2>Find Notes</h2>
           <p>See if your class is on Duly Noted.</p>
-          <p><a class="btn btn-default" href="#" role="button">Search &raquo;</a></p>
+         <p><a class="btn btn-default" href="Search.aspx" role="button">Search &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>Post Notes</h2>

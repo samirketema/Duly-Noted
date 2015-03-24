@@ -21,7 +21,7 @@ using System.Reflection;
 
 
 
-[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="dulyDB")]
+[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="DB_9BBCB0_duly")]
 public partial class DulyDBDataContext : System.Data.Linq.DataContext
 {
 	
@@ -35,6 +35,15 @@ public partial class DulyDBDataContext : System.Data.Linq.DataContext
   partial void InsertUserActivation(UserActivation instance);
   partial void UpdateUserActivation(UserActivation instance);
   partial void DeleteUserActivation(UserActivation instance);
+  partial void InsertCourse(Course instance);
+  partial void UpdateCourse(Course instance);
+  partial void DeleteCourse(Course instance);
+  partial void InsertProfessor(Professor instance);
+  partial void UpdateProfessor(Professor instance);
+  partial void DeleteProfessor(Professor instance);
+  partial void InsertSection(Section instance);
+  partial void UpdateSection(Section instance);
+  partial void DeleteSection(Section instance);
   #endregion
 	
 	public DulyDBDataContext() : 
@@ -80,6 +89,30 @@ public partial class DulyDBDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<UserActivation>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Course> Courses
+	{
+		get
+		{
+			return this.GetTable<Course>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Professor> Professors
+	{
+		get
+		{
+			return this.GetTable<Professor>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Section> Sections
+	{
+		get
+		{
+			return this.GetTable<Section>();
 		}
 	}
 }
@@ -375,6 +408,384 @@ public partial class UserActivation : INotifyPropertyChanging, INotifyPropertyCh
 				this._activationCode = value;
 				this.SendPropertyChanged("activationCode");
 				this.OnactivationCodeChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Courses")]
+public partial class Course : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _courseId;
+	
+	private string _subject;
+	
+	private string _courseNumber;
+	
+	private string _coursename;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncourseIdChanging(int value);
+    partial void OncourseIdChanged();
+    partial void OnsubjectChanging(string value);
+    partial void OnsubjectChanged();
+    partial void OncourseNumberChanging(string value);
+    partial void OncourseNumberChanged();
+    partial void OncoursenameChanging(string value);
+    partial void OncoursenameChanged();
+    #endregion
+	
+	public Course()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_courseId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int courseId
+	{
+		get
+		{
+			return this._courseId;
+		}
+		set
+		{
+			if ((this._courseId != value))
+			{
+				this.OncourseIdChanging(value);
+				this.SendPropertyChanging();
+				this._courseId = value;
+				this.SendPropertyChanged("courseId");
+				this.OncourseIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subject", DbType="NChar(3) NOT NULL", CanBeNull=false)]
+	public string subject
+	{
+		get
+		{
+			return this._subject;
+		}
+		set
+		{
+			if ((this._subject != value))
+			{
+				this.OnsubjectChanging(value);
+				this.SendPropertyChanging();
+				this._subject = value;
+				this.SendPropertyChanged("subject");
+				this.OnsubjectChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_courseNumber", DbType="NChar(5) NOT NULL", CanBeNull=false)]
+	public string courseNumber
+	{
+		get
+		{
+			return this._courseNumber;
+		}
+		set
+		{
+			if ((this._courseNumber != value))
+			{
+				this.OncourseNumberChanging(value);
+				this.SendPropertyChanging();
+				this._courseNumber = value;
+				this.SendPropertyChanged("courseNumber");
+				this.OncourseNumberChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_coursename", DbType="NChar(75) NOT NULL", CanBeNull=false)]
+	public string coursename
+	{
+		get
+		{
+			return this._coursename;
+		}
+		set
+		{
+			if ((this._coursename != value))
+			{
+				this.OncoursenameChanging(value);
+				this.SendPropertyChanging();
+				this._coursename = value;
+				this.SendPropertyChanged("coursename");
+				this.OncoursenameChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Professors")]
+public partial class Professor : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private string _email;
+	
+	private string _firstName;
+	
+	private string _lastName;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnemailChanging(string value);
+    partial void OnemailChanged();
+    partial void OnfirstNameChanging(string value);
+    partial void OnfirstNameChanged();
+    partial void OnlastNameChanging(string value);
+    partial void OnlastNameChanged();
+    #endregion
+	
+	public Professor()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="NVarChar(75) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+	public string email
+	{
+		get
+		{
+			return this._email;
+		}
+		set
+		{
+			if ((this._email != value))
+			{
+				this.OnemailChanging(value);
+				this.SendPropertyChanging();
+				this._email = value;
+				this.SendPropertyChanged("email");
+				this.OnemailChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_firstName", DbType="NVarChar(75) NOT NULL", CanBeNull=false)]
+	public string firstName
+	{
+		get
+		{
+			return this._firstName;
+		}
+		set
+		{
+			if ((this._firstName != value))
+			{
+				this.OnfirstNameChanging(value);
+				this.SendPropertyChanging();
+				this._firstName = value;
+				this.SendPropertyChanged("firstName");
+				this.OnfirstNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lastName", DbType="NVarChar(75) NOT NULL", CanBeNull=false)]
+	public string lastName
+	{
+		get
+		{
+			return this._lastName;
+		}
+		set
+		{
+			if ((this._lastName != value))
+			{
+				this.OnlastNameChanging(value);
+				this.SendPropertyChanging();
+				this._lastName = value;
+				this.SendPropertyChanged("lastName");
+				this.OnlastNameChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Sections")]
+public partial class Section : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _sId;
+	
+	private int _courseId;
+	
+	private string _sectionNumber;
+	
+	private string _professorEmail;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnsIdChanging(int value);
+    partial void OnsIdChanged();
+    partial void OncourseIdChanging(int value);
+    partial void OncourseIdChanged();
+    partial void OnsectionNumberChanging(string value);
+    partial void OnsectionNumberChanged();
+    partial void OnprofessorEmailChanging(string value);
+    partial void OnprofessorEmailChanged();
+    #endregion
+	
+	public Section()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int sId
+	{
+		get
+		{
+			return this._sId;
+		}
+		set
+		{
+			if ((this._sId != value))
+			{
+				this.OnsIdChanging(value);
+				this.SendPropertyChanging();
+				this._sId = value;
+				this.SendPropertyChanged("sId");
+				this.OnsIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_courseId", DbType="Int NOT NULL")]
+	public int courseId
+	{
+		get
+		{
+			return this._courseId;
+		}
+		set
+		{
+			if ((this._courseId != value))
+			{
+				this.OncourseIdChanging(value);
+				this.SendPropertyChanging();
+				this._courseId = value;
+				this.SendPropertyChanged("courseId");
+				this.OncourseIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sectionNumber", DbType="NChar(4) NOT NULL", CanBeNull=false)]
+	public string sectionNumber
+	{
+		get
+		{
+			return this._sectionNumber;
+		}
+		set
+		{
+			if ((this._sectionNumber != value))
+			{
+				this.OnsectionNumberChanging(value);
+				this.SendPropertyChanging();
+				this._sectionNumber = value;
+				this.SendPropertyChanged("sectionNumber");
+				this.OnsectionNumberChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_professorEmail", DbType="NVarChar(75)")]
+	public string professorEmail
+	{
+		get
+		{
+			return this._professorEmail;
+		}
+		set
+		{
+			if ((this._professorEmail != value))
+			{
+				this.OnprofessorEmailChanging(value);
+				this.SendPropertyChanging();
+				this._professorEmail = value;
+				this.SendPropertyChanged("professorEmail");
+				this.OnprofessorEmailChanged();
 			}
 		}
 	}

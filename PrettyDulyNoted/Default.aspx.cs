@@ -10,12 +10,15 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
         if (Session["dulyNoted"] != null)
         {
-            lblWelcome.Text = "Welcome, your UserId is: " + Session["dulyNoted"].ToString();
             lnkLogin.Visible = false;
-            lnkLogout.Visible = true;   
+            lnkLogout.Visible = true;
+        }
+        else
+        {
+            lnkLogin.Visible = true;
+            lnkLogout.Visible = false;
         }
     }
 
@@ -36,5 +39,10 @@ public partial class _Default : System.Web.UI.Page
     {
         Session.Abandon();
         Response.Redirect("~/LogoutConfirm.aspx");
+    }
+
+    protected void lnkSearch_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Search.aspx"); 
     }
 }
