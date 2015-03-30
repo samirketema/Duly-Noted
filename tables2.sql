@@ -127,8 +127,7 @@ CREATE TABLE [dbo].[Notes]
 	[numberTimesFlagged] [int] DEFAULT 0,
 	[upVoteCounter] [int] DEFAULT 0,
 	[downVoteCounter] [int] DEFAULT 0,
-	[source] VARBINARY(MAX) FILESTREAM NULL,
-	[UI] UNIQUEIDENTIFIER ROWGUIDCOL NOT NULL UNIQUE,
+	[source] varchar(max) NOT NULL,
 	CONSTRAINT [PK_Notes] PRIMARY KEY CLUSTERED 
 	(
 		[noteId] ASC
