@@ -14,11 +14,15 @@ public partial class _Default : System.Web.UI.Page
         {
             lnkLogin.Visible = false;
             lnkLogout.Visible = true;
+            lnkRegister.Visible = false;
+            lnkMember.Visible = true;
         }
         else
         {
             lnkLogin.Visible = true;
             lnkLogout.Visible = false;
+            lnkRegister.Visible = true;
+            lnkMember.Visible = false;
         }
     }
 
@@ -32,7 +36,7 @@ public partial class _Default : System.Web.UI.Page
     }
     protected void lnkLogin_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Login.aspx");     
+        Response.Redirect("~/Login.aspx");
 
     }
     protected void lnkLogout_Click(object sender, EventArgs e)
@@ -43,6 +47,6 @@ public partial class _Default : System.Web.UI.Page
 
     protected void lnkSearch_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Search.aspx"); 
+        Response.Redirect("~/Search.aspx");
     }
 }

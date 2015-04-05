@@ -25,8 +25,8 @@
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
-    <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -38,17 +38,22 @@
           <a class="navbar-brand" href="Default.aspx">Duly Noted</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-        <form id="form1" class="navbar-form navbar-right" role="form" runat="server">
+        <form id="form1" role="form" runat="server">
+            <ul class="nav navbar-nav navbar-right">
+            <li><asp:LinkButton ID="lnkMember" runat="server" OnClick="lnkMember_Click">Your Profile</asp:LinkButton></li>
+            <li><asp:LinkButton ID="lnkRegister" runat="server" OnClick="btnSignUp_Click">Register</asp:LinkButton></li>
+            <li><asp:LinkButton ID="lnkLogin" runat="server" OnClick="lnkLogin_Click">Login</asp:LinkButton></li>
+            <li><asp:LinkButton ID="lnkLogout" runat="server" OnClick="lnkLogout_Click" Visible="False">Logout</asp:LinkButton></li>
+          </ul>
 
-            <asp:LinkButton ID="LinkButton2" runat="server" OnClick ="lnkMember_Click" Text="Members Profile" CssClass="btn btn-primary"/>
-            <asp:LinkButton ID="LinkButton1" runat="server" OnClick ="btnSignUp_Click" Text="Register" CssClass="btn btn-primary"/>
-            <asp:LinkButton ID="lnkLogin" runat="server" OnClick="lnkLogin_Click" Text="Login" CssClass="btn btn-primary" />
-            <asp:LinkButton ID="lnkLogout" runat="server" OnClick="lnkLogout_Click" Visible="False" Text= "Logout" CssClass="btn btn-primary" />
+            
         </form>
         </div><!--/.navbar-collapse -->
       </div>
-    </nav>
+    </div>
 
+
+    <body>
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">

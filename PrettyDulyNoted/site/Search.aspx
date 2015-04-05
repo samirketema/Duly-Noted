@@ -71,7 +71,7 @@
                             <asp:ListItem Value="">Section Number</asp:ListItem>
                     </asp:DropDownList>
                     <br />
-                    <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" CssClass="btn btn-default btn-sm"/>
+                    <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" Enabled="false" CssClass="btn btn-default btn-sm"/>
 
                   </div>
 
