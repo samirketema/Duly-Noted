@@ -53,41 +53,28 @@
           <div class="container">
           <form id="form1" runat="server">
               <h1>Search for Notes</h1>
-              <table>
-                <tr>
-                    <td>Subject: </td>
-                    <td><asp:TextBox ID="txtSubject" runat="server"></asp:TextBox></td>
-                    <td><asp:Button ID="btnCheckSubject" runat="server" OnClick="btnCheckSubject_Click" Text="Check"/> </td>
-                    <td><asp:Label ID="lblError" runat="server" /></td>
-                </tr>
-                <tr>
-                    <td>Course Number: </td>
-                    <td><asp:DropDownList ID="ddlCourseNumber" runat="server" Enabled="False" OnSelectedIndexChanged="course_select" AutoPostBack="True">
-                            <asp:ListItem Value="">Course Number</asp:ListItem>
-                        </asp:DropDownList>           
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Section: </td>
-                    <td><asp:DropDownList ID="ddlSection" runat="server" Enabled="False" AutoPostBack="True">
+              <asp:Label ID="lblError" runat="server" ForeColor="Red"/>
+              <br />
+                <div class="form-group col-md-2">
+                    <label>Subject </label>
+                    <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" placeholder="Example: COP"/>
+                    <asp:Button ID="btnCheckSubject" runat="server" OnClick="btnCheckSubject_Click" Text="Check" CssClass="btn btn-default btn-sm"/>
+                    <br />
+
+                    <label>Course Number </label>
+                    <asp:DropDownList ID="ddlCourseNumber" runat="server" Enabled="False" OnSelectedIndexChanged="course_select" AutoPostBack="True" CssClass="form-control">
+                        <asp:ListItem Value="">Course Number</asp:ListItem>
+                    </asp:DropDownList>           
+
+                    <label>Section </label>
+                    <asp:DropDownList ID="ddlSection" runat="server" Enabled="False" OnSelectedIndexChanged="section_select" AutoPostBack="True" CssClass="form-control">
                             <asp:ListItem Value="">Section Number</asp:ListItem>
-                        </asp:DropDownList>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><asp:Button ID="btnSearch" runat="server" Enabled="False" OnClick="btnSearch_Click" Text="Search" /></td>
-                    <td></td>
-                    <td></td>
-                </tr>                
-            </table>
-            <div>
-                <!-- populate data -->
-            </div>
+                    </asp:DropDownList>
+                    <br />
+                    <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" CssClass="btn btn-default btn-sm"/>
+
+                  </div>
+
           </form>
           </div>
         </div>
