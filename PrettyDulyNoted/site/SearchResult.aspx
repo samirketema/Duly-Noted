@@ -51,38 +51,32 @@
         <div class="bs-docs-header" id="content">
           <div class="container">            
                 <form id="form1" runat="server">
-                  <div id="div1" runat="server">
-                    <br />
-                    <h1>Results</h1>                  
-                      <asp:Label ID="lblResult" runat="server" />
+                <div>
+                <asp:GridView ID="GridView1" runat="server"
+                    AllowSorting ="true" AllowPaging="true" PageSize="20"
+                    AutoGenerateColumns="false" DataKeyNames="Title"
+                    OnPageIndexChanged="GridView1_PageIndexChanged" 
+                    OnPageIndexChanging="GridView1_PageIndexChanging" 
+                    OnSorted ="GridView1_Sorted"
+                    OnSorting="GridView1_Sorting">
 
-                      <asp:ListView runat="server"></asp:ListView>
-                      <!-- Body here -->
-                      <!-- Body here -->
-                      <!-- Body here -->
-
-                       <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="LinqDataSource1">
-                           <Columns>
-                               <asp:BoundField DataField="title" HeaderText="title" ReadOnly="True" SortExpression="title" />
-                               <asp:BoundField DataField="description" HeaderText="description" ReadOnly="True" SortExpression="description" />
-                               <asp:BoundField DataField="upVoteCounter" HeaderText="upVoteCounter" ReadOnly="True" SortExpression="upVoteCounter" />
-                               <asp:BoundField DataField="downVoteCounter" HeaderText="downVoteCounter" ReadOnly="True" SortExpression="downVoteCounter" />
-                               <asp:BoundField DataField="numberTimesFlagged" HeaderText="numberTimesFlagged" ReadOnly="True" SortExpression="numberTimesFlagged" />
-                           </Columns>
-                      </asp:GridView>
-                      <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="DulyDBDataContext" EntityTypeName="" OrderBy="upVoteCounter desc" Select="new (title, description, upVoteCounter, downVoteCounter, numberTimesFlagged)" TableName="Notes" Where="sId == @sId">
-                          <WhereParameters>
-                              <asp:QueryStringParameter DefaultValue="1" Name="sId" QueryStringField="sId" Type="Int32" />
-                          </WhereParameters>
-                      </asp:LinqDataSource>
-
-
-
-                      <!-- test button -->
-                      <asp:Button ID="btnTest" runat="server" Text="TestNote" OnClick="btnTest_Click"/>
-
-
-                  </div>
+                    <Columns>
+                        <asp:BoundField DataField ="Title" HeaderText="Note Title"
+                            SortExpression="Title" ReadOnly="true" />
+                        <asp:BoundField DataField="Uploader" HeaderText="Uploader"
+                            SortExpression="Uploader" />
+                        <asp:BoundField DataField="UpVote" HeaderText="UpVote"
+                            SortExpression="UpVote" />
+                        <asp:BoundField DataField="DownVote" HeaderText="DownVote"
+                            SortExpression="DownVote" />
+                        <asp:BoundField DataField="Flag" HeaderText="Flag"
+                            SortExpression="Flag" /> 
+                        <asp:HyperLinkField DataNavigateUrlFields="nId" 
+                                            DataNavigateUrlFormatString="~/DisplayNote.aspx?Note={0}"
+                                            Text="View Note"/> 
+                    </Columns>
+                </asp:GridView>
+                </div>
                    
                  </form>
           </div>
