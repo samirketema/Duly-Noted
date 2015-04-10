@@ -33,6 +33,28 @@ public partial class Upload : System.Web.UI.Page
         }
 
     }
+
+    protected string randomName ()
+    {
+        string res="";
+
+        for (int i = 0; i < 5; i++)
+        {
+            //random number
+            Random rand = new Random((int)DateTime.Now.Ticks);
+            int RandomNumber;
+            RandomNumber = rand.Next(100000, 999999);
+
+            //random char
+            int CharCode = rand.Next(Convert.ToInt32('a'), Convert.ToInt32('z'));
+            char RandomChar = Convert.ToChar(CharCode);
+
+            res = res + RandomChar + RandomNumber;
+        }
+
+        return res;
+    }
+
     protected void UploadButton_Click(object sender, EventArgs e)
     {
         if (FileUpload1.HasFile)
@@ -41,13 +63,11 @@ public partial class Upload : System.Web.UI.Page
                 if (ddlSection.SelectedIndex != -1)
                 {
                     DulyDBDataContext dc = new DulyDBDataContext();
-                    var maxId = (from n in dc.Notes
-                                  orderby n.noteId descending
-                                  select n.noteId).First();
-                    var newNoteId = maxId + 1;
 
                     string extension = System.IO.Path.GetExtension(FileUpload1.FileName);
-                    string newFileName = Convert.ToString(newNoteId) + extension;
+                    
+                    //generate RandomName
+                    string newFileName = randomName() + extension;
 
                     FileUpload1.SaveAs(HttpContext.Current.Server.MapPath("~") + "/Uploads/" +
                          newFileName);

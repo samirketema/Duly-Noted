@@ -20,6 +20,56 @@
                 padding-top: 50px;
                 padding-bottom: 20px;
             }
+            .auto-style2 {
+                height: 57px;
+            }
+            .auto-style3 {
+                height: 83px;
+            }
+            .auto-style4 {
+                height: 94px;
+            }
+            .auto-style5 {
+                height: 61px;
+            }
+            .auto-style6 {
+                width: 506px;
+            }
+            .auto-style7 {
+                height: 94px;
+                width: 506px;
+            }
+            .auto-style8 {
+                height: 83px;
+                width: 506px;
+            }
+            .auto-style9 {
+                height: 57px;
+                width: 506px;
+            }
+            .auto-style10 {
+                height: 61px;
+                width: 506px;
+            }
+            .auto-style11 {
+                width: 153px;
+            }
+            .auto-style12 {
+                height: 94px;
+                width: 153px;
+            }
+            .auto-style13 {
+                height: 83px;
+                width: 153px;
+            }
+            .auto-style14 {
+                height: 57px;
+                width: 153px;
+            }
+            .auto-style15 {
+                height: 61px;
+                width: 153px;
+            }
         </style>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
@@ -56,20 +106,45 @@
                     <h1><asp:Label ID ="lblTitle" runat="server" /></h1>
                     <table>
                         <tr>
-                            <td>Uploader:</td>
-                            <td> <asp:Label ID="lblUploader" runat="server" /></td>
+                            <td class="auto-style11">Uploader:</td>
+                            <td class="auto-style6"> <asp:Label ID="lblUploader" runat="server" /></td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td>Description:</td>
-                            <td> <asp:Label ID="lblDescription" runat="server" /></td>
+                            <td class="auto-style12">Description:</td>
+                            <td class="auto-style7"> <asp:Label ID="lblDescription" runat="server" /></td>
+                            <td class="auto-style4"></td>
                         </tr>
                         <tr>
-                            <td>Preview:</td>
-                            <td> "PREVIEW / THUMBNAIL / whatever we can do to show a sample here"</td>
+                            <td class="auto-style13">Preview:</td>
+                            <td class="auto-style8"> "PREVIEW / THUMBNAIL /&nbsp; sample here"</td>
+                            <td class="auto-style3"></td>
                         </tr>
                         <tr>
+                            <td class="auto-style14"></td>
+                            <td class="auto-style9">
+                                <br />
+                                <br />
+                                <br />
+                                Rating:</td>
+                            <td class="auto-style2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style15"></td>
+                            <td class="auto-style10">
+                                <asp:Button ID="btnUpVote" runat="server" text="Good" Width="146px" OnClick="btnUpVote_Click"/>
+                                <asp:Button ID="btnDownVote" runat="server" text="Meh" Width="141px" OnClick="btnDownVote_Click"/>
+                                <asp:Button ID="btnFlag" runat="server" text="Inappropriate" Width="194px" OnClick="btnFlag_Click"/></td>
+                            <td class="auto-style5">
+                                &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style11"> 
+                                <br />
+                                <br />
+                            </td>
+                            <td class="auto-style6"><asp:Button ID="btnDownload" runat="server" OnClick="btnDownload_Click" Text="View Online" /></td>
                             <td> </td>
-                            <td> <asp:Button ID="btnDownload" runat="server" OnClick="btnDownload_Click" Text="Download" /></td>
                         </tr>
                     </table>
                 </div>
@@ -77,7 +152,7 @@
                 <!-- THIS IS THE COMMENT PART -->
                 <div id="divComment" runat="server">
 
-
+                    <h3>Comments:</h3>
                     <!-- COMMENT COMMENT COMMENT HEREEEEEEEEE -->
 
                 </div>                

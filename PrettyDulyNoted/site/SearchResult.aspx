@@ -9,7 +9,7 @@
     <head runat="server">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>Search Results</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -52,13 +52,17 @@
           <div class="container">            
                 <form id="form1" runat="server">
                 <div>
+                <h1>Search Results</h1><br />
+                <asp:Label ID="lblResult" runat="server" /> 
+                    <br />
+                    <br />
                 <asp:GridView ID="GridView1" runat="server"
                     AllowSorting ="true" AllowPaging="true" PageSize="20"
                     AutoGenerateColumns="false" DataKeyNames="Title"
                     OnPageIndexChanged="GridView1_PageIndexChanged" 
                     OnPageIndexChanging="GridView1_PageIndexChanging" 
                     OnSorted ="GridView1_Sorted"
-                    OnSorting="GridView1_Sorting">
+                    OnSorting="GridView1_Sorting" Width="699px">
 
                     <Columns>
                         <asp:BoundField DataField ="Title" HeaderText="Note Title"
@@ -76,6 +80,8 @@
                                             Text="View Note"/> 
                     </Columns>
                 </asp:GridView>
+                <br />
+                <asp:Button ID="btnReturn" Text="Back to Search Page" runat="server" OnClick="btnReturn_Click" />
                 </div>
                    
                  </form>

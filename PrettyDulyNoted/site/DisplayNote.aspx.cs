@@ -34,10 +34,9 @@ public partial class DisplayNote : System.Web.UI.Page
     {
         int nId = int.Parse(Request.QueryString["Note"]);
         var dc = new DulyDBDataContext();
-        var query = (from n in dc.Notes
-                     where n.noteId == nId
-                     select n).First();
-        return query;
+        return (from n in dc.Notes
+                where n.noteId == nId
+                select n).First();
     }
 
     protected void btnDownload_Click( object sender, EventArgs e)
@@ -47,12 +46,7 @@ public partial class DisplayNote : System.Web.UI.Page
             var query = getNote();
 
             //download
-            string uriPath =query.source;
-            string localPath = new Uri(uriPath).LocalPath;
-            // Create New instance of FileInfo class to get the properties of the file being downloaded
-            FileInfo file = new FileInfo(localPath);
-            Response.AddHeader("Content-Disposition", "attachment; filename=" + file.Name);
-            Response.End();
+            Response.Redirect(query.source);
         }
         else
         {
@@ -60,5 +54,52 @@ public partial class DisplayNote : System.Web.UI.Page
             string returnUrl ="DisplayNote.aspx?Note="+ Request.QueryString["Note"];
             Response.Redirect("~/Login.aspx?ReturnURL="+ returnUrl);
         }
+    }
+
+    protected void rating (string action)
+    {
+        //check for logged in
+        if (Session["dulyNoted"] == null)
+        {
+            //modify this to the current page name
+            string returnUrl = "DisplayNote.aspx?Note=" + Request.QueryString["Note"];
+            Response.Redirect("~/Login.aspx?ReturnURL=" + returnUrl);
+        }
+        else
+        {
+            int nId = int.Parse(Request.QueryString["Note"]);
+            var dc = new DulyDBDataContext();
+            var query = (from n in dc.Notes
+                         where n.noteId == nId
+                         select n).First();
+
+            switch (action)
+            {
+                case "Up":
+                    query.upVoteCounter += 1;
+                    break;
+                case "Down":
+                    query.downVoteCounter += 1;
+                    break;
+                case "Flag":
+                    query.numberTimesFlagged += 1;
+                    break;
+            }
+
+            dc.SubmitChanges();
+        }        
+    }
+
+    protected void btnUpVote_Click(object sender, EventArgs e)
+    {
+        rating("Up");
+    }
+    protected void btnDownVote_Click(object sender, EventArgs e)
+    {
+        rating("Down");
+    }
+    protected void btnFlag_Click(object sender, EventArgs e)
+    {
+        rating("Flag");
     }
 }

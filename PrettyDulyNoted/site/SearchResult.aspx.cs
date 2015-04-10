@@ -7,32 +7,31 @@ using System.Web.UI.WebControls;
 
 public partial class SearchResult : System.Web.UI.Page
 {
-
-   
+    protected int getSid()
+    {
+        return (string.IsNullOrEmpty(Request.QueryString["sId"])) ? (int)-1 : int.Parse(Request.QueryString["sId"]);
+    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            int sId = (string.IsNullOrEmpty(Request.QueryString["sId"]))? (int)-1 : int.Parse(Request.QueryString["sId"]);
 
+            int sId = getSid();
             if (sId != -1)
-            {
                 BindData(sId);
-            }
-            else
-                Response.Redirect("~/Search.aspx");
-            
-        }
-        
+            else //case the querystring is null
+                Response.Redirect("~/Search.aspx");            
+        }        
     }
 
-
+    //bind data to the gridview
     protected void BindData(int sId)
     {
 
         var dc = new DulyDBDataContext();
 
+        //join 2 tables: Notes and Users
         var query = from n in dc.Notes
                     where n.sId == sId
                     join u in dc.Users on n.userId equals u.userId
@@ -46,8 +45,9 @@ public partial class SearchResult : System.Web.UI.Page
                         Flag = n.numberTimesFlagged
                     };
 
+        lblResult.Text = string.Format("{0} notes match your search criteria.", query.Count());
 
-        //sort
+        //sorting handler
         bool sortAsc = this.SortDirection == SortDirection.Ascending ? true : false;
         switch (SortExpression)
         {
@@ -71,14 +71,12 @@ public partial class SearchResult : System.Web.UI.Page
                 break;
         }
 
-
+        //bind.
         GridView1.DataSource = query.ToList();
         GridView1.DataBind();
     }
 
-
-
-    //sorting
+    //sorting.. basically toggle between ASC and DES
     protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
     {
         if (this.SortExpression == e.SortExpression)
@@ -96,15 +94,11 @@ public partial class SearchResult : System.Web.UI.Page
         GridView1.SelectedIndex = -1;
     }
 
-
     protected void GridView1_Sorted(object sender, EventArgs e)
     {
-        int sId = (string.IsNullOrEmpty(Request.QueryString["sId"]))? (int)-1 : int.Parse(Request.QueryString["sId"]);
-
+        int sId = getSid();
         if (sId != -1)
-        {
-            BindData(sId);                
-        }
+            BindData(sId);
         else
             Response.Redirect("~/Search.aspx");
     }
@@ -125,11 +119,11 @@ public partial class SearchResult : System.Web.UI.Page
     {
         get
         {
-            object o = ViewState["SortDirection"];
-            if (o == null)
+            object obj = ViewState["SortDirection"];
+            if (obj == null)
                 return SortDirection.Ascending;
             else
-                return (SortDirection)o;
+                return (SortDirection) obj;
         }
         set
         {
@@ -148,14 +142,15 @@ public partial class SearchResult : System.Web.UI.Page
 
     protected void GridView1_PageIndexChanged(object sender, EventArgs e)
     {
-        int sId = (string.IsNullOrEmpty(Request.QueryString["sId"]))? (int)-1 : int.Parse(Request.QueryString["sId"]);
-
-            if (sId != -1)
-            {
-                    BindData(sId);                
-            }
-            else
-                Response.Redirect("~/Search.aspx");
+        int sId = getSid();
+        if (sId != -1)
+            BindData(sId);
+        else
+            Response.Redirect("~/Search.aspx");
  
+    }
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Search.aspx");
     }
 }
