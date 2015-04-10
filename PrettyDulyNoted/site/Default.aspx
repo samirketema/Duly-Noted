@@ -79,11 +79,13 @@
           <p>Share notes with your classmates. </p>
           <p><a class="btn btn-default" href="Upload.aspx" role="button">Upload &raquo;</a></p>
        </div>
+          <!-- we dont need this...
         <div class="col-md-4">
           <h2>Download Notes</h2>
           <p>Download notes for your class.</p>
           <p><a class="btn btn-default" href="#" role="button">Download &raquo;</a></p>
         </div>
+          -->
       </div>
 
       <hr>

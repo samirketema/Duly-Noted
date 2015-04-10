@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Template : System.Web.UI.Page
+public partial class Search : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -16,10 +16,13 @@ public partial class Template : System.Web.UI.Page
         if (ddlSection.SelectedIndex != -1)
         {
             int sId = int.Parse(ddlSection.SelectedValue);
+            Response.Redirect("~/SearchResult.aspx?sId=" + sId);
+            
             //TODO: query the note table using the sectionId
             //TODO: populate the data from db to a grid view !? that supports clickable on each record
             //TODO: pass the noteID from the clicked link to new page Note.aspx using queryString
-
+           
+                        
         }
     }
     protected void btnCheckSubject_Click(object sender, EventArgs e)
@@ -55,8 +58,7 @@ public partial class Template : System.Web.UI.Page
         //get the course id from the dropdown list
         int cId = int.Parse(ddlCourseNumber.SelectedValue);
 
-        
-        
+                
         var dc = new DulyDBDataContext();
         var query = from c in dc.Sections
                     where c.courseId == cId

@@ -38,6 +38,9 @@ public partial class DulyDBDataContext : System.Data.Linq.DataContext
   partial void InsertBannedEmail(BannedEmail instance);
   partial void UpdateBannedEmail(BannedEmail instance);
   partial void DeleteBannedEmail(BannedEmail instance);
+  partial void InsertComment(Comment instance);
+  partial void UpdateComment(Comment instance);
+  partial void DeleteComment(Comment instance);
   partial void InsertCourse(Course instance);
   partial void UpdateCourse(Course instance);
   partial void DeleteCourse(Course instance);
@@ -303,6 +306,8 @@ public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private string _salt;
 	
+	private EntitySet<Comment> _Comments;
+	
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -329,6 +334,7 @@ public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public User()
 	{
+		this._Comments = new EntitySet<Comment>(new Action<Comment>(this.attach_Comments), new Action<Comment>(this.detach_Comments));
 		OnCreated();
 	}
 	
@@ -512,6 +518,19 @@ public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Comment", Storage="_Comments", ThisKey="userId", OtherKey="userId")]
+	public EntitySet<Comment> Comments
+	{
+		get
+		{
+			return this._Comments;
+		}
+		set
+		{
+			this._Comments.Assign(value);
+		}
+	}
+	
 	public event PropertyChangingEventHandler PropertyChanging;
 	
 	public event PropertyChangedEventHandler PropertyChanged;
@@ -530,6 +549,18 @@ public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
+	}
+	
+	private void attach_Comments(Comment entity)
+	{
+		this.SendPropertyChanging();
+		entity.User = this;
+	}
+	
+	private void detach_Comments(Comment entity)
+	{
+		this.SendPropertyChanging();
+		entity.User = null;
 	}
 }
 
@@ -596,12 +627,14 @@ public partial class BannedEmail : INotifyPropertyChanging, INotifyPropertyChang
 }
 
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Comments")]
-public partial class Comment
+public partial class Comment : INotifyPropertyChanging, INotifyPropertyChanged
 {
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 	
 	private int _commentId;
 	
-	private System.Nullable<int> _userId;
+	private int _userId;
 	
 	private int _noteId;
 	
@@ -609,11 +642,34 @@ public partial class Comment
 	
 	private string _comment1;
 	
+	private EntityRef<User> _User;
+	
+	private EntityRef<Note> _Note;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncommentIdChanging(int value);
+    partial void OncommentIdChanged();
+    partial void OnuserIdChanging(int value);
+    partial void OnuserIdChanged();
+    partial void OnnoteIdChanging(int value);
+    partial void OnnoteIdChanged();
+    partial void OncommentedTimeChanging(System.DateTime value);
+    partial void OncommentedTimeChanged();
+    partial void Oncomment1Changing(string value);
+    partial void Oncomment1Changed();
+    #endregion
+	
 	public Comment()
 	{
+		this._User = default(EntityRef<User>);
+		this._Note = default(EntityRef<Note>);
+		OnCreated();
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentId", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int commentId
 	{
 		get
@@ -624,13 +680,17 @@ public partial class Comment
 		{
 			if ((this._commentId != value))
 			{
+				this.OncommentIdChanging(value);
+				this.SendPropertyChanging();
 				this._commentId = value;
+				this.SendPropertyChanged("commentId");
+				this.OncommentIdChanged();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userId", DbType="Int")]
-	public System.Nullable<int> userId
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userId", DbType="Int NOT NULL")]
+	public int userId
 	{
 		get
 		{
@@ -640,7 +700,15 @@ public partial class Comment
 		{
 			if ((this._userId != value))
 			{
+				if (this._User.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnuserIdChanging(value);
+				this.SendPropertyChanging();
 				this._userId = value;
+				this.SendPropertyChanged("userId");
+				this.OnuserIdChanged();
 			}
 		}
 	}
@@ -656,7 +724,15 @@ public partial class Comment
 		{
 			if ((this._noteId != value))
 			{
+				if (this._Note.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnnoteIdChanging(value);
+				this.SendPropertyChanging();
 				this._noteId = value;
+				this.SendPropertyChanged("noteId");
+				this.OnnoteIdChanged();
 			}
 		}
 	}
@@ -672,7 +748,11 @@ public partial class Comment
 		{
 			if ((this._commentedTime != value))
 			{
+				this.OncommentedTimeChanging(value);
+				this.SendPropertyChanging();
 				this._commentedTime = value;
+				this.SendPropertyChanged("commentedTime");
+				this.OncommentedTimeChanged();
 			}
 		}
 	}
@@ -688,8 +768,100 @@ public partial class Comment
 		{
 			if ((this._comment1 != value))
 			{
+				this.Oncomment1Changing(value);
+				this.SendPropertyChanging();
 				this._comment1 = value;
+				this.SendPropertyChanged("comment1");
+				this.Oncomment1Changed();
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Comment", Storage="_User", ThisKey="userId", OtherKey="userId", IsForeignKey=true)]
+	public User User
+	{
+		get
+		{
+			return this._User.Entity;
+		}
+		set
+		{
+			User previousValue = this._User.Entity;
+			if (((previousValue != value) 
+						|| (this._User.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._User.Entity = null;
+					previousValue.Comments.Remove(this);
+				}
+				this._User.Entity = value;
+				if ((value != null))
+				{
+					value.Comments.Add(this);
+					this._userId = value.userId;
+				}
+				else
+				{
+					this._userId = default(int);
+				}
+				this.SendPropertyChanged("User");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Note_Comment", Storage="_Note", ThisKey="noteId", OtherKey="noteId", IsForeignKey=true)]
+	public Note Note
+	{
+		get
+		{
+			return this._Note.Entity;
+		}
+		set
+		{
+			Note previousValue = this._Note.Entity;
+			if (((previousValue != value) 
+						|| (this._Note.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Note.Entity = null;
+					previousValue.Comments.Remove(this);
+				}
+				this._Note.Entity = value;
+				if ((value != null))
+				{
+					value.Comments.Add(this);
+					this._noteId = value.noteId;
+				}
+				else
+				{
+					this._noteId = default(int);
+				}
+				this.SendPropertyChanged("Note");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }
@@ -852,6 +1024,8 @@ public partial class Note : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private string _description;
 	
+	private EntitySet<Comment> _Comments;
+	
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -878,6 +1052,7 @@ public partial class Note : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public Note()
 	{
+		this._Comments = new EntitySet<Comment>(new Action<Comment>(this.attach_Comments), new Action<Comment>(this.detach_Comments));
 		OnCreated();
 	}
 	
@@ -1061,6 +1236,19 @@ public partial class Note : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Note_Comment", Storage="_Comments", ThisKey="noteId", OtherKey="noteId")]
+	public EntitySet<Comment> Comments
+	{
+		get
+		{
+			return this._Comments;
+		}
+		set
+		{
+			this._Comments.Assign(value);
+		}
+	}
+	
 	public event PropertyChangingEventHandler PropertyChanging;
 	
 	public event PropertyChangedEventHandler PropertyChanged;
@@ -1080,6 +1268,18 @@ public partial class Note : INotifyPropertyChanging, INotifyPropertyChanged
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
+	
+	private void attach_Comments(Comment entity)
+	{
+		this.SendPropertyChanging();
+		entity.Note = this;
+	}
+	
+	private void detach_Comments(Comment entity)
+	{
+		this.SendPropertyChanging();
+		entity.Note = null;
+	}
 }
 
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PasswordRecoveries")]
@@ -1092,6 +1292,8 @@ public partial class PasswordRecovery : INotifyPropertyChanging, INotifyProperty
 	
 	private string _validCode;
 	
+	private string _email;
+	
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1100,6 +1302,8 @@ public partial class PasswordRecovery : INotifyPropertyChanging, INotifyProperty
     partial void OnuserIdChanged();
     partial void OnvalidCodeChanging(string value);
     partial void OnvalidCodeChanged();
+    partial void OnemailChanging(string value);
+    partial void OnemailChanged();
     #endregion
 	
 	public PasswordRecovery()
@@ -1143,6 +1347,26 @@ public partial class PasswordRecovery : INotifyPropertyChanging, INotifyProperty
 				this._validCode = value;
 				this.SendPropertyChanged("validCode");
 				this.OnvalidCodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="NChar(75) NOT NULL", CanBeNull=false)]
+	public string email
+	{
+		get
+		{
+			return this._email;
+		}
+		set
+		{
+			if ((this._email != value))
+			{
+				this.OnemailChanging(value);
+				this.SendPropertyChanging();
+				this._email = value;
+				this.SendPropertyChanged("email");
+				this.OnemailChanged();
 			}
 		}
 	}

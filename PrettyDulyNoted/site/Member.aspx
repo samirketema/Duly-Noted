@@ -50,24 +50,35 @@
           <div class="container">
             <h1>Member Portal</h1>
                 <form id="form1" runat="server">
+                  <div id="div_Notlogin" runat ="server" visible ="True">
+                    <div class="container">
+                        <h1>You are not logged in!</h1>
+                        <p>You should be redirected to the Duly Noted Login page shortly.</p>
+                        <p>If not, click the link below.</p>
+                        <p><a class="btn btn-primary btn-sm" href="Login.aspx?ReturnURL=Member.aspx" role="button">Login &raquo;</a></p>
+                    </div>
+                  </div>
+
+
                     <div id="div1" runat="server" visible="False">
-                        If you see this text, you are logged in       
-    
+                        <table>
+                            <tr>
+                                <td>Welcome:</td>
+                                <td><asp:Label ID="lblDisplayname" runat="server"/></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+
+                        </table>
                         <br />
-                        It means the authentication was successful.<br />
-                        Want more evident?
                         <br />
-                        Your displayname is:
-                        <asp:Label ID="lblDisplayname" runat="server"></asp:Label>
+                        <asp:LinkButton ID="lnkDel" runat="server" OnClientClick="return confirm('Are you sure? This will also delete all your notes.');" OnClick="lnkDel_Click" Text="Delete Account" CssClass="btn btn-primary"/>
                         <br />
                         <br />
-                        <asp:LinkButton ID="lnkDel" runat="server" OnClientClick="return confirm('Are you sure?');" OnClick="lnkDel_Click" Text="Delete Account" CssClass="btn btn-primary"/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:LinkButton ID="lnkChangePass" runat="server" OnClick="lnkChangePass_Click" Text="Change Password" CssClass="btn btn-primary" />
                         <br />
                         <br />
-    
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:LinkButton ID="lnkLogOut" runat="server" OnClick="lnkLogOut_Click" Text="Logout" CssClass="btn btn-primary"/>
     
                     </div>

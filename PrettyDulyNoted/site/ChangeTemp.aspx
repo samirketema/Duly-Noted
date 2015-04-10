@@ -1,4 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Search.aspx.cs" Inherits="Search" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ChangeTemp.aspx.cs" Inherits="ChangeTemp" %>
+
+<!DOCTYPE html>
+
+
 
 
 <!doctype html>
@@ -25,8 +29,6 @@
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-
-
     </head>
     <body>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -48,56 +50,51 @@
     </nav>
         <!-- Docs page layout -->
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="bs-docs-header" id="content">
           <div class="container">
-          <form id="form1" runat="server">
-              <h1>Search for Notes</h1>
-              <asp:Label ID="lblError" runat="server" ForeColor="Red"/>
-              <br />
-                <div class="form-group col-md-2">
-                    <label>Subject </label>
-                    <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" placeholder="Example: COP"/>
-                    <asp:Button ID="btnCheckSubject" runat="server" OnClick="btnCheckSubject_Click" Text="Check" CssClass="btn btn-default btn-sm"/>
-                    <br />
+            <h1>Change Password</h1>
+                <div class="col-md-6">
+                <form id="form1" runat="server">
+                    <div class="form-group col-lg-6">
+                        <label>Temporary Password</label>
+                        <asp:TextBox ID="txtTempPass" runat="server" TextMode="Password" CssClass="form-control"/>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Enter Current Password" ForeColor="Red" ControlToValidate="txtCurrentPass" ValidationGroup="grpSubmit" Display="Dynamic"/>
+                        <br />
+                    </div>
 
-                    <label>Course Number </label>
-                    <asp:DropDownList ID="ddlCourseNumber" runat="server" Enabled="False" OnSelectedIndexChanged="course_select" AutoPostBack="True" CssClass="form-control">
-                        <asp:ListItem Value="">Course Number</asp:ListItem>
-                    </asp:DropDownList>           
+                    <div class="form-group col-lg-6">
+                        <label>New Password</label>
+                        <asp:TextBox ID="txtNewPass" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Enter New Password" ForeColor="Red" ControlToValidate="txtNewPass" ValidationGroup="grpSubmit" Display="Dynamic"/>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Repeat New Password</label>
+                        <asp:TextBox ID="txtConfirmPass" runat="server" TextMode="Password" CssClass="form-control"/>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Enter Confirm Password" ForeColor="Red" ControlToValidate="txtConfirmPass" ValidationGroup="grpSubmit" Display="Dynamic"/>
+                        <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Confirm Password does not match" ControlToCompare="txtNewPass" ControlToValidate="txtConfirmPass" ForeColor="Red" ValidationGroup="grpSubmit" Display="Dynamic"/>
+                    
+                    </div>
+                    <asp:label ID="lblError" runat="server" ForeColor="Red" />
+     
+                  <asp:Button ID="btnChangePass" runat="server" ValidationGroup="grpSubmit" OnClick="btnChangePass_Click" Text="Submit" CssClass="btn btn-primary"/>
 
-                    <label>Section </label>
-                    <asp:DropDownList ID="ddlSection" runat="server" Enabled="False" OnSelectedIndexChanged="section_select" AutoPostBack="True" CssClass="form-control">
-                            <asp:ListItem Value="">Section Number</asp:ListItem>
-                    </asp:DropDownList>
-                    <br />
-                    <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" Enabled="false" CssClass="btn btn-default btn-sm"/>
+                </form>
+                </div>
 
-                  </div>
-
-
-
-              <div id ="divResult" runat="server">
-
-                    <!-- SEARCH RESULT TABLE HERE-->
-              </div>
-
-          </form>
           </div>
         </div>
     </div>
+
 
       <hr>
 
       <footer>
         <p>&copy; Duly Noted 2015</p>
       </footer>
-    <!-- /container -->        
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
-
-    
     </body>
 </html>

@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,15 +13,21 @@ public partial class Upload : System.Web.UI.Page
 
         if (Session["dulyNoted"] == null)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert",
-                "alert('You are not logged in');window.location ='Login.aspx';", true);
+            div1.Visible = false;
+            div_Notlogin.Visible = true;
+            //modify this to the current page name
+            var returnUrl ="Upload.aspx";
+
+            //let the login page know which page to return
+            string LoginPageUrl = "Login.aspx?ReturnURL=" + returnUrl;
+            Page.Header.Controls.Add(new LiteralControl(string.Format("<META http-equiv=\"REFRESH\" content=\"3;url={0}\" > ", LoginPageUrl)));
         }
         else      //logged in
         {
             if (!IsPostBack)
             {
                 div1.Visible = true;
-
+                div_Notlogin.Visible = false;
             }
 
         }
@@ -32,8 +38,6 @@ public partial class Upload : System.Web.UI.Page
         if (FileUpload1.HasFile)
             try
             {
-
-
                 if (ddlSection.SelectedIndex != -1)
                 {
                     DulyDBDataContext dc = new DulyDBDataContext();

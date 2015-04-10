@@ -51,6 +51,17 @@
         <div class="bs-docs-header" id="content">
           <div class="container">            
                 <form id="form1" runat="server">
+                  
+                  <div id="div_Notlogin" runat ="server" visible ="True">
+                    <div class="container">
+                        <h1>You are not logged in!</h1>
+                        <p>You should be redirected to the Duly Noted Login page shortly.</p>
+                        <p>If not, click the link below.</p>
+                        <p><a class="btn btn-primary btn-sm" href="Login.aspx?ReturnURL=Upload.aspx" role="button">Login &raquo;</a></p>
+
+                    </div>
+                  </div>
+
                   <div id="div1" runat="server" visible="False">
                     <br />
                     <h1>Upload Notes</h1>
@@ -122,7 +133,7 @@
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/vendor/bootstrap.file-input.js"></script>
         <script>$(document).ready(function () { $('input[type=file]').bootstrapFileInput(); });</script>
-        <script src="js/main.js"></script>>
+        <script src="js/main.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
 

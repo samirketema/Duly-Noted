@@ -30,12 +30,43 @@ public partial class ResetPassword : System.Web.UI.Page
             {
                 var user = query.First();
                 string temp = Membership.GeneratePassword(10, 5);
-                //just change the pass ... will make a new table to handle temp pass later------------------------
-                user.password = temp;
-                dc.SubmitChanges();
-                
-                //send email
-                forgotPass(user.userId, user.displayName, temp);
+
+                //using userId to check if there is any record in UserActivations table
+                if (dc.UserActivations.Any(a => a.userId == user.userId))
+                    lblError.Text = "Your account has not been activated";
+                else
+                {
+                    // check the password recoveries table for existed record
+                    var recover = from r in dc.PasswordRecoveries
+                                  where r.userId == user.userId
+                                  select r;
+
+                    //if the user already asked for a temp pass, renew the temp pass
+                    if (recover.Count() > 0)
+                    {
+                        var recoverEdit = recover.First();
+                        recoverEdit.validCode = temp; //assign new pass
+                    }
+                    else //if this is the first attempt, create a new record
+                    {
+                        var recoverNew = new PasswordRecovery
+                        {
+                            userId = user.userId,
+                            validCode = temp,
+                            email = user.email
+                        };
+                        dc.PasswordRecoveries.InsertOnSubmit(recoverNew);
+                    }
+
+                    //yep submit the changes.
+                    dc.SubmitChanges();
+
+                    //send email
+                    forgotPass(user.userId, user.displayName, temp);
+
+                    Response.Redirect("~/Reset_Success.aspx?Email=" + txtEmail.Text);
+                }
+               
             }
             else
                 lblError.Text = "This email has not been registered";

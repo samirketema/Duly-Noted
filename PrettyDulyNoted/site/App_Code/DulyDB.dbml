@@ -28,12 +28,12 @@
   </Table>
   <Table Name="dbo.Comments" Member="Comments">
     <Type Name="Comment">
-      <Column Name="commentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="commentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="noteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="commentedTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="comment" Member="comment1" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Association Name="User_Comment" Member="User" ThisKey="userId" OtherKey="userId" Type="User" IsForeignKey="true" DeleteRule="SET NULL" />
+      <Association Name="User_Comment" Member="User" ThisKey="userId" OtherKey="userId" Type="User" IsForeignKey="true" />
       <Association Name="Note_Comment" Member="Note" ThisKey="noteId" OtherKey="noteId" Type="Note" IsForeignKey="true" />
     </Type>
   </Table>
@@ -63,6 +63,7 @@
     <Type Name="PasswordRecovery">
       <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="validCode" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NChar(75) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.Professors" Member="Professors">

@@ -10,16 +10,24 @@ public partial class Member : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        Page.Header.DataBind();
         if (Session["dulyNoted"] == null)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert",
-                "alert('You are not logged in');window.location ='Login.aspx';", true);
+            div1.Visible = false;
+            div_Notlogin.Visible = true;
+            //modify this to the current page name
+            var returnUrl = "Member.aspx";
+
+            //let the login page know which page to return
+            string LoginPageUrl = "Login.aspx?ReturnURL=" + returnUrl;
+            Page.Header.Controls.Add(new LiteralControl(string.Format("<META http-equiv=\"REFRESH\" content=\"3;url={0}\" > ", LoginPageUrl)));
         }
         else      //logged in
         {
             if (!IsPostBack)
             {
                 div1.Visible = true;
+                div_Notlogin.Visible = false;
 
                 //get the information
                 DulyDBDataContext dc = new DulyDBDataContext();
@@ -45,9 +53,18 @@ public partial class Member : System.Web.UI.Page
     protected void lnkDel_Click(object sender, EventArgs e)
     {
         DulyDBDataContext dc = new DulyDBDataContext();
+        
         var query = (from u in dc.Users
                      where u.userId == int.Parse(Session["dulyNoted"].ToString())
                      select u).First();
+
+        //get all the note
+        var note = from n in dc.Notes
+                   where n.userId == query.userId
+                   select n;
+
+        //delete note
+        dc.Notes.DeleteAllOnSubmit(note);
 
         //delete account
         dc.Users.DeleteOnSubmit(query);

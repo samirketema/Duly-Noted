@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Search.aspx.cs" Inherits="Search" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DisplayNote.aspx.cs" Inherits="DisplayNote" %>
 
 
 <!doctype html>
@@ -25,8 +25,6 @@
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-
-
     </head>
     <body>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -50,39 +48,40 @@
 
     <div class="container">
         <div class="bs-docs-header" id="content">
-          <div class="container">
-          <form id="form1" runat="server">
-              <h1>Search for Notes</h1>
-              <asp:Label ID="lblError" runat="server" ForeColor="Red"/>
-              <br />
-                <div class="form-group col-md-2">
-                    <label>Subject </label>
-                    <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" placeholder="Example: COP"/>
-                    <asp:Button ID="btnCheckSubject" runat="server" OnClick="btnCheckSubject_Click" Text="Check" CssClass="btn btn-default btn-sm"/>
-                    <br />
+          <div class="container">            
+            <form id="form1" runat="server">
+                <!-- THIS IS THE BODY OF THE WEBPAGE-->
+                <!-- THIS IS THE NOTE INFO -->
+                <div id="divNote" runat="server">
+                    <h1><asp:Label ID ="lblTitle" runat="server" /></h1>
+                    <table>
+                        <tr>
+                            <td>Uploader:</td>
+                            <td> <asp:Label ID="lblUploader" runat="server" /></td>
+                        </tr>
+                        <tr>
+                            <td>Description:</td>
+                            <td> <asp:Label ID="lblDescription" runat="server" /></td>
+                        </tr>
+                        <tr>
+                            <td>Preview:</td>
+                            <td> "PREVIEW / THUMBNAIL / whatever we can do to show a sample here"</td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td> <asp:Button ID="btnDownload" runat="server" OnClick="btnDownload_Click" Text="Download" /></td>
+                        </tr>
+                    </table>
+                </div>
 
-                    <label>Course Number </label>
-                    <asp:DropDownList ID="ddlCourseNumber" runat="server" Enabled="False" OnSelectedIndexChanged="course_select" AutoPostBack="True" CssClass="form-control">
-                        <asp:ListItem Value="">Course Number</asp:ListItem>
-                    </asp:DropDownList>           
-
-                    <label>Section </label>
-                    <asp:DropDownList ID="ddlSection" runat="server" Enabled="False" OnSelectedIndexChanged="section_select" AutoPostBack="True" CssClass="form-control">
-                            <asp:ListItem Value="">Section Number</asp:ListItem>
-                    </asp:DropDownList>
-                    <br />
-                    <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" Enabled="false" CssClass="btn btn-default btn-sm"/>
-
-                  </div>
+                <!-- THIS IS THE COMMENT PART -->
+                <div id="divComment" runat="server">
 
 
+                    <!-- COMMENT COMMENT COMMENT HEREEEEEEEEE -->
 
-              <div id ="divResult" runat="server">
-
-                    <!-- SEARCH RESULT TABLE HERE-->
-              </div>
-
-          </form>
+                </div>                
+            </form>
           </div>
         </div>
     </div>
@@ -98,6 +97,5 @@
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
 
-    
     </body>
 </html>
