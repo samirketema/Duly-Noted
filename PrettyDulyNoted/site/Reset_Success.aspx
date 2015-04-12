@@ -50,7 +50,7 @@
     <div class="container">
         <div class="bs-docs-header" id="content">
           <div class="container">
-            <h1>Account Registered.</h1>
+            <h1>Success!</h1>
                 <form id="form1" runat="server">
                     <p>
                         <asp:Literal ID="ltMessage" runat="server"></asp:Literal>

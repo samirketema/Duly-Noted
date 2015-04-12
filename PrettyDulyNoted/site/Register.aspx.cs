@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text;
+using System.Security.Cryptography;
 
 //email verification
 using System.Net.Mail;
@@ -37,14 +39,17 @@ public partial class Register : System.Web.UI.Page
                     message = "This email address has already been used.";
         else
         {
+            string salt = createSalt(24);
+
             var newUser = new User
             {
                 email = txtEmail.Text.Trim(),
-                password = txtPassword.Text.Trim(),
+                password = hashPassword(txtPassword.Text.Trim(), salt ),
                 displayName = txtDisplayName.Text.Trim(),
                 firstName = txtFirstName.Text.Trim(),
                 lastName = txtLastName.Text.Trim(),
-                createdDate = DateTime.Now
+                createdDate = DateTime.Now,
+                salt = salt,
             };
             dc.Users.InsertOnSubmit(newUser);
             dc.SubmitChanges();
@@ -60,6 +65,33 @@ public partial class Register : System.Web.UI.Page
         
     }
 
+    // create the salt for the password
+    private static string createSalt(int size)
+    {
+        RNGCryptoServiceProvider ranNum = new RNGCryptoServiceProvider();
+        byte[] salt = new byte[size];
+        ranNum.GetBytes(salt);
+
+        return Convert.ToBase64String(salt);
+    }
+
+    // hash the password with the salt
+    public static string hashPassword( string passWordText, string saltText )
+    {
+        //var sha1 = System.Security.Cryptography.SHA384.Create();
+
+        //string saltedPasswordText = saltText.Concat<string>(passWordText);
+
+        byte[] passwordInBytes = Encoding.UTF8.GetBytes(passWordText);
+        byte[] saltInBytes = Convert.FromBase64String(saltText);
+
+        byte[] saltedPasswordInBytes = saltInBytes.Concat(passwordInBytes).ToArray();
+
+
+        byte[] hash = new SHA256Managed().ComputeHash(saltedPasswordInBytes);
+
+        return Convert.ToBase64String(hash); 
+    }
 
     //activation
     private void SendActivationEmail(int Id)

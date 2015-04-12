@@ -59,7 +59,7 @@
                     <div class="form-group col-lg-6">
                         <label>Temporary Password</label>
                         <asp:TextBox ID="txtTempPass" runat="server" TextMode="Password" CssClass="form-control"/>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Enter Current Password" ForeColor="Red" ControlToValidate="txtCurrentPass" ValidationGroup="grpSubmit" Display="Dynamic"/>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Enter Current Password" ForeColor="Red" ControlToValidate="txtTempPass" ValidationGroup="grpSubmit" Display="Dynamic"/>
                         <br />
                     </div>
 

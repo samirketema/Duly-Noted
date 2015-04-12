@@ -57,7 +57,7 @@
                 <div class="col-md-6">
                 <form id="form1" runat="server">
                     <div class="form-group col-lg-6">
-                        <label>Current Password</label>
+                        <label>Temporary Password</label>
                         <asp:TextBox ID="txtCurrentPass" runat="server" TextMode="Password" CssClass="form-control" value=""/>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Enter Current Password" ForeColor="Red" ControlToValidate="txtCurrentPass" ValidationGroup="grpSubmit" Display="Dynamic"/>
                         <br />
