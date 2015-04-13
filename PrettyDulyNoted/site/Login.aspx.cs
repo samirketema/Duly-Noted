@@ -54,13 +54,15 @@ public partial class Login : System.Web.UI.Page
                                 where u.email == txtEmail.Text 
                                 select u.salt;
 
-                string userSalt = saltQuery.First();
+               
 
                 string hashedPassword = "no";
 
                 // make sure the user was found
                 if (saltQuery.Count() > 0 )
                 {
+                    string userSalt = saltQuery.First();
+                    
                     // makes sure there was a valid salt
                     if ( userSalt != null )
                         hashedPassword = hashPassword(txtPassword.Text.Trim(), userSalt);
