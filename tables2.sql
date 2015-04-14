@@ -154,3 +154,14 @@ CREATE TABLE [dbo].[Comments]
 	CONSTRAINT [FK_Comments_Notes] FOREIGN KEY([noteId]) REFERENCES [dbo].[Notes] ([noteId])
 );
 
+CREATE TABLE [dbo].[UserNotes](
+	[UserId] [int] NOT NULL,
+	[NoteId] [int] NOT NULL,
+	[Voted] [bit] NULL,
+	[Flagged] [bit] NULL,
+ CONSTRAINT [PK_UserNotes] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[NoteId] ASC
+));
+
