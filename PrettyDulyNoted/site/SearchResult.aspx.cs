@@ -16,7 +16,6 @@ public partial class SearchResult : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-
             int sId = getSid();
             if (sId != -1)
                 BindData(sId);
@@ -37,15 +36,36 @@ public partial class SearchResult : System.Web.UI.Page
                     join u in dc.Users on n.userId equals u.userId
                     select new
                     {
-                        nId= n.noteId,
+                        nId= n.noteId,  
                         Title = n.title,
                         Uploader = u.displayName,
                         UpVote = n.upVoteCounter,
                         DownVote = n.downVoteCounter,
-                        Flag = n.numberTimesFlagged
+                        Flag = n.numberTimesFlagged,
+                        noteDate = n.noteDate.Value.ToShortDateString(),
+                        UploadDate = n.uploadDate.Value.ToShortDateString()                        
                     };
 
-        lblResult.Text = string.Format("{0} notes match your search criteria.", query.Count());
+        //get the course and section description
+        var qcourse = from s in dc.Sections
+                      where s.sId == sId
+                      join c in dc.Courses on s.courseId equals c.courseId
+                      join p in dc.Professors on s.professorEmail equals p.email
+                      select new
+                      {
+                          cName = c.coursename,
+                          cNumber = c.courseNumber,
+                          sNumber = s.sectionNumber,
+                          cSubject = c.subject,
+                          pEmail = p.email,
+                          pFirst = p.firstName,
+                          pLast = p.lastName
+                      };
+        var course = qcourse.ToList().First();
+        string resultText = course.cSubject +" " + course.cNumber +"- "+ course.sNumber+
+                            "<br/> Description: "+ course.cName + "<br/> Professor Name: "+course.pFirst+" "+course.pLast+
+                            "<br/> Professor Email: " + course.pEmail + "<br/><br/>There are: " + query.Count() + " notes that match your search criteria.<br/>";
+        lblResult.Text = resultText;
 
         //sorting handler
         bool sortAsc = this.SortDirection == SortDirection.Ascending ? true : false;
@@ -66,10 +86,15 @@ public partial class SearchResult : System.Web.UI.Page
             case "Flag":
                 query = sortAsc ? query.OrderBy(q => q.Flag) : query.OrderByDescending(q => q.Flag);
                 break;
+            case "NoteDate":
+                query = sortAsc ? query.OrderBy(q => q.noteDate) : query.OrderByDescending(q => q.noteDate);
+                break;
+            case "UploadDate":
+                query = sortAsc ? query.OrderBy(q => q.UploadDate) : query.OrderByDescending(q => q.UploadDate);
+                break; 
             default:
                 query = sortAsc ? query.OrderBy(q => q.Title) : query.OrderByDescending(q => q.Title);
-                break;
-        }
+                break;        }
 
         //bind.
         GridView1.DataSource = query.ToList();

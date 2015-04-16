@@ -55,7 +55,6 @@
                 <h1>Search Results</h1><br />
                 <asp:Label ID="lblResult" runat="server" /> 
                     <br />
-                    <br />
                 <asp:GridView ID="GridView1" runat="server"
                     AllowSorting ="true" AllowPaging="true" PageSize="20"
                     AutoGenerateColumns="false" DataKeyNames="Title"
@@ -69,12 +68,16 @@
                             SortExpression="Title" ReadOnly="true" />
                         <asp:BoundField DataField="Uploader" HeaderText="Uploader"
                             SortExpression="Uploader" />
-                        <asp:BoundField DataField="UpVote" HeaderText="UpVote"
+                        <asp:BoundField DataField="UpVote" HeaderText="Up Vote"
                             SortExpression="UpVote" />
-                        <asp:BoundField DataField="DownVote" HeaderText="DownVote"
+                        <asp:BoundField DataField="DownVote" HeaderText="Down Vote"
                             SortExpression="DownVote" />
                         <asp:BoundField DataField="Flag" HeaderText="Flag"
                             SortExpression="Flag" /> 
+                        <asp:BoundField DataField="noteDate" HeaderText="Note Date"
+                            SortExpression="NoteDate" />
+                        <asp:BoundField DataField="UploadDate" HeaderText="Upload Date"
+                            SortExpression="UploadDate" />
                         <asp:HyperLinkField DataNavigateUrlFields="nId" 
                                             DataNavigateUrlFormatString="~/DisplayNote.aspx?Note={0}"
                                             Text="View Note"/> 

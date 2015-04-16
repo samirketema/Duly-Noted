@@ -27,9 +27,10 @@ public partial class Upload : System.Web.UI.Page
             if (!IsPostBack)
             {
                 div1.Visible = true;
+                NoteTitle.Text = "";
+                NoteDescription.Text = "";
                 div_Notlogin.Visible = false;
             }
-
         }
 
     }
@@ -55,6 +56,7 @@ public partial class Upload : System.Web.UI.Page
         return res;
     }
 
+
     protected void UploadButton_Click(object sender, EventArgs e)
     {
         if (FileUpload1.HasFile)
@@ -71,10 +73,10 @@ public partial class Upload : System.Web.UI.Page
 
                     FileUpload1.SaveAs(HttpContext.Current.Server.MapPath("~") + "/Uploads/" +
                          newFileName);
+                    //test link
                     hyperlink.NavigateUrl = "http://dulynoted-001-site1.smarterasp.net/Uploads/" + newFileName;
                     hyperlink.Visible = true;
-
-                    
+                 
                     var newNote = new Note
                     {
 
@@ -85,15 +87,16 @@ public partial class Upload : System.Web.UI.Page
                         downVoteCounter = 0,
                         source = "http://dulynoted-001-site1.smarterasp.net/Uploads/" + newFileName,
                         title = NoteTitle.Text,
-                        description = NoteDescription.Text
-
+                        description = NoteDescription.Text,
+                        noteDate = Calendar_NoteDate.SelectedDate,
+                        uploadDate = DateTime.Now
 
                     };
                     dc.Notes.InsertOnSubmit(newNote);
                     dc.SubmitChanges();
-
-                    //redirect student to section page with dialog box saying successful upload
-                    //Response.Redirect("~/Member.aspx");
+                    
+                    //AFTER THE FILE IS UPLOADED HERE
+                    
                 }
                 else
                 {
@@ -172,12 +175,16 @@ public partial class Upload : System.Web.UI.Page
 
     protected void section_select(object sender, EventArgs e)
     {
-        //File Upload enabled.
+        Calendar_NoteDate.Enabled = true;
+    }
+
+    protected void Calendar_Change(object sender, EventArgs e)
+    {
+        //File Upload enabled.    
         FileUpload1.Enabled = true;
-        UploadButton.Enabled = true;
         NoteTitle.Enabled = true;
         NoteDescription.Enabled = true;
-
+        UploadButton.Enabled = true;
     }
 
 }

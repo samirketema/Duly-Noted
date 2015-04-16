@@ -96,18 +96,24 @@
     </nav>
         <!-- Docs page layout -->
 
-    <div class="container">
-        <div class="bs-docs-header" id="content">
-          <div class="container">            
+    <div class="container" runat ="server">
+        <div class="bs-docs-header" id="content" runat="server">
+          <div class="container" runat="server">            
             <form id="form1" runat="server">
                 <!-- THIS IS THE BODY OF THE WEBPAGE-->
                 <!-- THIS IS THE NOTE INFO -->
                 <div id="divNote" runat="server">
                     <h1><asp:Label ID ="lblTitle" runat="server" /></h1>
+                    <h5><asp:Label ID="lblNoteDate" runat="server" /></h5>
                     <table>
                         <tr>
                             <td class="auto-style11">Uploader:</td>
                             <td class="auto-style6"> <asp:Label ID="lblUploader" runat="server" /></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style11">Uploaded date:</td>
+                            <td class="auto-style6"> <asp:Label ID="lblUploadedDate" runat="server" /></td>
                             <td></td>
                         </tr>
                         <tr>

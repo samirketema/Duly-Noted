@@ -65,7 +65,7 @@
                   <div id="div1" runat="server" visible="False">
                     <br />
                     <h1>Upload Notes</h1>
-                    <asp:HyperLink id="hyperlink" runat="server" Target="_blank" NavigateUrl="~Default.aspx" Visible="false">TestLink</asp:HyperLink>
+                    <asp:HyperLink id="hyperlink" runat="server" Target="_blank" NavigateUrl="~Default.aspx" Visible="false">Your File has been uploaded!</asp:HyperLink>
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="alert alert-info alert-dismissible" role="alert">
@@ -92,15 +92,18 @@
                         <asp:DropDownList ID="ddlSection" runat="server" Enabled="False" OnSelectedIndexChanged="section_select" AutoPostBack="True" CssClass="form-control">
                                 <asp:ListItem Value="">Section Number</asp:ListItem>
                         </asp:DropDownList>
-
+                        <br />
+                        <label>Note Date: </label>
+                        <br />
+                        <asp:Calendar ID="Calendar_NoteDate" runat="server" Enabled="False" OnSelectionChanged="Calendar_Change"/>
+                        
                    </div>
                    <div class="container-fluid">         
                     <div class="form-group col-md-4">
                         <label>File Upload:</label>
                         <br />
                         <asp:FileUpload ID="FileUpload1" runat="server" Enabled="False" data-filename-placement="inside"/><br />
-                        <br />
-                        <label>Title </label>
+                        <label>Title: </label>
                         <asp:TextBox ID="NoteTitle" runat="server" Enabled ="False" CssClass="form-control"></asp:TextBox>
                         <br />
                         <label>Description: </label>

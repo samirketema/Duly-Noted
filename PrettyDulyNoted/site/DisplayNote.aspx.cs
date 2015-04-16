@@ -17,26 +17,100 @@ public partial class DisplayNote : System.Web.UI.Page
             var currentNote = getNote();
 
             //get the uploader of the currentNote
-            var dc = new DulyDBDataContext();
-            var uploader = (from u in dc.Users
-                            where u.userId == currentNote.userId
-                            select u).First();
+            if (currentNote != null)
+            {
+                var dc = new DulyDBDataContext();
+                var uploader = (from u in dc.Users
+                                where u.userId == currentNote.userId
+                                select u).First();
 
-            //display
-            lblTitle.Text = currentNote.title;
-            lblUploader.Text = uploader.displayName;
-            lblDescription.Text = currentNote.description;            
+                //display
+                lblTitle.Text = currentNote.title;
+                lblNoteDate.Text = "Noted on: " +currentNote.noteDate.Value.ToShortDateString();
+                lblUploadedDate.Text = currentNote.uploadDate.Value.ToShortDateString();
+                
+                lblUploader.Text = uploader.displayName;
+                lblDescription.Text = currentNote.description;
 
+                //handle voting buttons
+                if (Session["dulyNoted"] != null)
+                {
+                    //case your own note
+                    int userId = int.Parse(Session["dulyNoted"].ToString());
+                    if (userId == currentNote.userId)
+                    {
+                        btnUpVote.Enabled = false;
+                        btnDownVote.Enabled = false;
+                        btnFlag.Enabled = false;
+                    }
+                    else //others
+                        handlingVotingButtons(int.Parse(Session["dulyNoted"].ToString()));
+                }
+            }
         }
     }
 
-    protected Note getNote()
+    //this function return the voting record
+    protected VotingCheck doVotingCheck (int userId)
     {
         int nId = int.Parse(Request.QueryString["Note"]);
         var dc = new DulyDBDataContext();
-        return (from n in dc.Notes
-                where n.noteId == nId
-                select n).First();
+        //pull the user voting check
+        var qvote = from v in dc.VotingChecks
+                    where v.userId == userId && v.noteId == nId
+                    select v;
+        if (qvote.Count() > 0)
+            return qvote.First();
+        else
+            return null;
+    }
+
+    protected void handlingVotingButtons(int userId)
+    {
+        //get the voting status of the user
+        VotingCheck votestatus = doVotingCheck(userId);
+
+        //there is a record
+        if (votestatus != null)
+        {
+            //check for up and down
+            if (votestatus.voted)
+            {
+                btnUpVote.Enabled = false;
+                btnDownVote.Enabled = false;
+            }
+            else
+            {
+                btnUpVote.Enabled = true;
+                btnDownVote.Enabled = true;
+            }
+
+            //check the flag
+            if (votestatus.flagged)
+                btnFlag.Enabled = false;
+            else
+                btnFlag.Enabled = true;
+        }
+    }
+
+
+    protected Note getNote()
+    {
+
+        int nId = (string.IsNullOrEmpty(Request.QueryString["Note"])) ? (int)-1 : int.Parse(Request.QueryString["Note"]);
+        
+        if (nId != -1)
+        {
+            var dc = new DulyDBDataContext();
+            return (from n in dc.Notes
+                    where n.noteId == nId
+                    select n).First();
+        }
+        else
+        {
+            Response.Redirect("~/Search.aspx");
+            return null;
+        }
     }
 
     protected void btnDownload_Click( object sender, EventArgs e)
@@ -73,16 +147,33 @@ public partial class DisplayNote : System.Web.UI.Page
                          where n.noteId == nId
                          select n).First();
 
+            //get user Id
+            int userId = int.Parse(Session["dulyNoted"].ToString());
+
+            //call the votingRecord
+            voteRecord(userId, nId);           
+
+            //then just update the voting
+            var qvote = (from v in dc.VotingChecks
+                        where v.userId == userId && v.noteId == nId
+                        select v).First();
+
             switch (action)
             {
                 case "Up":
                     query.upVoteCounter += 1;
+                    qvote.voted = true;
+                    disableVoting();
                     break;
                 case "Down":
                     query.downVoteCounter += 1;
+                    qvote.voted = true;
+                    disableVoting();
                     break;
                 case "Flag":
                     query.numberTimesFlagged += 1;
+                    qvote.flagged = true;
+                    btnFlag.Enabled = false;
                     break;
             }
 
@@ -90,6 +181,33 @@ public partial class DisplayNote : System.Web.UI.Page
         }        
     }
 
+    //handle the button enable status
+    protected void disableVoting()
+    {
+        btnUpVote.Enabled = false;
+        btnDownVote.Enabled = false;
+    }
+
+    protected void voteRecord (int userId, int nId)
+    {
+        var dc = new DulyDBDataContext();
+        VotingCheck votestatus = doVotingCheck(userId);
+
+        //if there is no record, create new one
+        if (votestatus == null)
+        {
+            var newVotingRec = new VotingCheck
+            {
+                userId = userId,
+                noteId = nId,
+                flagged = false,
+                voted = false
+            };
+
+            dc.VotingChecks.InsertOnSubmit(newVotingRec);
+            dc.SubmitChanges();
+        }
+    }
     protected void btnUpVote_Click(object sender, EventArgs e)
     {
         rating("Up");
