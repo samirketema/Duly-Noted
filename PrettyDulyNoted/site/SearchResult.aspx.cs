@@ -42,8 +42,10 @@ public partial class SearchResult : System.Web.UI.Page
                         UpVote = n.upVoteCounter,
                         DownVote = n.downVoteCounter,
                         Flag = n.numberTimesFlagged,
-                        noteDate = n.noteDate.Value.ToShortDateString(),
-                        UploadDate = n.uploadDate.Value.ToShortDateString()                        
+                        noteDate = n.noteDate,
+                        UploadDate = n.uploadDate,
+                        prettyNoteDate = n.noteDate.Value.ToShortDateString(),
+                        prettyUploadDate = n.uploadDate.Value.ToShortDateString()
                     };
 
         //get the course and section description
@@ -94,7 +96,8 @@ public partial class SearchResult : System.Web.UI.Page
                 break; 
             default:
                 query = sortAsc ? query.OrderBy(q => q.Title) : query.OrderByDescending(q => q.Title);
-                break;        }
+                break;       
+        }
 
         //bind.
         GridView1.DataSource = query.ToList();

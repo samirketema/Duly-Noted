@@ -74,9 +74,9 @@
                             SortExpression="DownVote" />
                         <asp:BoundField DataField="Flag" HeaderText="Flag"
                             SortExpression="Flag" /> 
-                        <asp:BoundField DataField="noteDate" HeaderText="Note Date"
+                        <asp:BoundField DataField="prettyNoteDate" HeaderText="Note Date"
                             SortExpression="NoteDate" />
-                        <asp:BoundField DataField="UploadDate" HeaderText="Upload Date"
+                        <asp:BoundField DataField="prettyUploadDate" HeaderText="Upload Date"
                             SortExpression="UploadDate" />
                         <asp:HyperLinkField DataNavigateUrlFields="nId" 
                                             DataNavigateUrlFormatString="~/DisplayNote.aspx?Note={0}"
