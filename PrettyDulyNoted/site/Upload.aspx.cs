@@ -15,6 +15,7 @@ public partial class Upload : System.Web.UI.Page
         {
             div1.Visible = false;
             div_Notlogin.Visible = true;
+
             //modify this to the current page name
             var returnUrl ="Upload.aspx";
 
@@ -26,6 +27,8 @@ public partial class Upload : System.Web.UI.Page
         {
             if (!IsPostBack)
             {
+                lnkLogout.Visible = true;
+                lnkMember.Visible = true;
                 div1.Visible = true;
                 NoteTitle.Text = "";
                 NoteDescription.Text = "";
@@ -138,7 +141,7 @@ public partial class Upload : System.Web.UI.Page
             ddlCourseNumber.Items.Insert(0, new ListItem("Please Select...", "-1"));
         }
         else
-            lblError.Text = "the Subject you entered does not exist";
+            lblError.Text = "The Subject you entered does not exist.";
 
     }
 
@@ -170,7 +173,7 @@ public partial class Upload : System.Web.UI.Page
             ddlSection.Items.Insert(0, new ListItem("Please Select...", "-1"));
         }
         else
-            lblError.Text = "no Section for the selected Course Number";
+            lblError.Text = "No Section for the selected Course Number.";
     }
 
     protected void section_select(object sender, EventArgs e)
@@ -186,5 +189,16 @@ public partial class Upload : System.Web.UI.Page
         NoteDescription.Enabled = true;
         UploadButton.Enabled = true;
     }
+    protected void lnkMember_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Member.aspx");
+    }
+
+    protected void lnkLogout_Click(object sender, EventArgs e)
+    {
+        Session.Abandon();
+        Response.Redirect("~/LogoutConfirm.aspx");
+    }
+
 
 }

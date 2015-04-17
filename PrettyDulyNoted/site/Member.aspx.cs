@@ -84,4 +84,13 @@ public partial class Member : System.Web.UI.Page
     {
         Response.Redirect("~/ChangePassword.aspx");
     }
+    protected void lnkMember_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Member.aspx");
+    }
+    protected void lnkLogout_Click(object sender, EventArgs e)
+    {
+        Session.Abandon();
+        Response.Redirect("~/LogoutConfirm.aspx");
+    }
 }

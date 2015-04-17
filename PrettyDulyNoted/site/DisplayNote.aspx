@@ -77,29 +77,32 @@
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
     <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="Default.aspx">Duly Noted</a>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-        <div id="navbarRight" class="navbar-form navbar-right" role="form" runat="server">
-        </div>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </nav>
-        <!-- Docs page layout -->
+    <form id="form1" runat="server">
+     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="Default.aspx">Duly Noted</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                <li><asp:LinkButton ID="lnkMember" runat="server" OnClick="lnkMember_Click">Your Profile</asp:LinkButton></li>
+                <li><asp:LinkButton ID="lnkRegister" runat="server" OnClick="btnSignUp_Click">Register</asp:LinkButton></li>
+                <li><asp:LinkButton ID="lnkLogin" runat="server" OnClick="lnkLogin_Click">Login</asp:LinkButton></li>
+                <li><asp:LinkButton ID="lnkLogout" runat="server" OnClick="lnkLogout_Click" Visible="False">Logout</asp:LinkButton></li>
+              </ul>
+            </div><!--/.navbar-collapse -->
+          </div>
+        </div><!-- Docs page layout -->
 
     <div class="container" runat ="server">
         <div class="bs-docs-header" id="content" runat="server">
           <div class="container" runat="server">            
-            <form id="form1" runat="server">
                 <!-- THIS IS THE BODY OF THE WEBPAGE-->
                 <!-- THIS IS THE NOTE INFO -->
                 <div id="divNote" runat="server">
@@ -138,9 +141,9 @@
                         <tr>
                             <td class="auto-style15"></td>
                             <td class="auto-style10">
-                                <asp:Button ID="btnUpVote" runat="server" text="Good" Width="146px" OnClick="btnUpVote_Click"/>
-                                <asp:Button ID="btnDownVote" runat="server" text="Meh" Width="141px" OnClick="btnDownVote_Click"/>
-                                <asp:Button ID="btnFlag" runat="server" text="Inappropriate" Width="194px" OnClick="btnFlag_Click"/></td>
+                                <asp:LinkButton ID="btnUpVote" runat="server" Text="<span class='glyphicon glyphicon-thumbs-up'></span> Upvote" CssClass="btn btn-primary btn-sm" OnClick="btnUpVote_Click"></asp:LinkButton>
+                                <asp:LinkButton ID="btnDownVote" runat="server" Text="<span class='glyphicon glyphicon-thumbs-down'></span> Downvote" CssClass="btn btn-primary btn-sm" OnClick="btnDownVote_Click"></asp:LinkButton>
+                                <asp:LinkButton ID="btnFlag" runat="server" Text="<span class='glyphicon glyphicon-flag'></span> Flag" CssClass="btn btn-primary btn-sm" OnClick="btnFlag_Click"></asp:LinkButton>
                             <td class="auto-style5">
                                 &nbsp;</td>
                         </tr>
@@ -162,7 +165,6 @@
                     <!-- COMMENT COMMENT COMMENT HEREEEEEEEEE -->
 
                 </div>                
-            </form>
           </div>
         </div>
     </div>
@@ -177,6 +179,6 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
-
+    </form>
     </body>
 </html>

@@ -29,29 +29,33 @@
 
     </head>
     <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="Default.aspx">Duly Noted</a>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+    <form id="form1" runat="server">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="Default.aspx">Duly Noted</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                <li><asp:LinkButton ID="lnkMember" runat="server" OnClick="lnkMember_Click">Your Profile</asp:LinkButton></li>
+                <li><asp:LinkButton ID="lnkRegister" runat="server" OnClick="btnSignUp_Click">Register</asp:LinkButton></li>
+                <li><asp:LinkButton ID="lnkLogin" runat="server" OnClick="lnkLogin_Click">Login</asp:LinkButton></li>
+                <li><asp:LinkButton ID="lnkLogout" runat="server" OnClick="lnkLogout_Click" Visible="False">Logout</asp:LinkButton></li>
+              </ul>
+            </div><!--/.navbar-collapse -->
+          </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-        <div id="navbarRight" class="navbar-form navbar-right" role="form" runat="server">
-        </div>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </nav>
         <!-- Docs page layout -->
 
     <div class="container">
         <div class="bs-docs-header" id="content">
           <div class="container">
-          <form id="form1" runat="server">
               <h1>Search for Notes</h1>
               <asp:Label ID="lblError" runat="server" ForeColor="Red"/>
               <br />
@@ -81,8 +85,6 @@
 
                     <!-- SEARCH RESULT TABLE HERE-->
               </div>
-
-          </form>
           </div>
         </div>
     </div>
@@ -98,6 +100,6 @@
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
 
-    
+    </form>
     </body>
 </html>

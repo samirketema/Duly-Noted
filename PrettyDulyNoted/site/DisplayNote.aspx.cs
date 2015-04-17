@@ -11,6 +11,22 @@ public partial class DisplayNote : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
+                if (Session["dulyNoted"] != null)
+        {
+            lnkLogin.Visible = false;
+            lnkLogout.Visible = true;
+            lnkRegister.Visible = false;
+            lnkMember.Visible = true;
+        }
+        else
+        {
+            lnkLogin.Visible = true;
+            lnkLogout.Visible = false;
+            lnkRegister.Visible = true;
+            lnkMember.Visible = false;
+        }
+
         if (!IsPostBack)
         {           
             //use the getNote function to query to get the currentNote
@@ -210,14 +226,37 @@ public partial class DisplayNote : System.Web.UI.Page
     }
     protected void btnUpVote_Click(object sender, EventArgs e)
     {
+        btnUpVote.CssClass = "btn btn-success btn-sm";
         rating("Up");
     }
     protected void btnDownVote_Click(object sender, EventArgs e)
     {
+        btnDownVote.CssClass = "btn btn-warning btn-sm";
         rating("Down");
     }
     protected void btnFlag_Click(object sender, EventArgs e)
     {
+        btnFlag.CssClass = "btn btn-danger btn-sm";
         rating("Flag");
     }
+
+    protected void btnSignUp_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Register.aspx");
+    }
+    protected void lnkMember_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Member.aspx");
+    }
+    protected void lnkLogin_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Login.aspx?ReturnURL=DisplayNote.aspx");
+
+    }
+    protected void lnkLogout_Click(object sender, EventArgs e)
+    {
+        Session.Abandon();
+        Response.Redirect("~/LogoutConfirm.aspx");
+    }
+
 }

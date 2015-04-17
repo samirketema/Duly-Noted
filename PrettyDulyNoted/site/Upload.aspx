@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Upload.aspx.cs" Inherits="Upload" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" runat="server" CodeFile="Upload.aspx.cs" Inherits="Upload" %>
 
 <!DOCTYPE html>
 
@@ -28,29 +28,31 @@
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
     <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="Default.aspx">Duly Noted</a>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+    <form id="form1" runat="server">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="Default.aspx">Duly Noted</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                <li><asp:LinkButton ID="lnkMember" runat="server" OnClick="lnkMember_Click" Visible="false">Your Profile</asp:LinkButton></li>
+                <li><asp:LinkButton ID="lnkLogout" runat="server" OnClick="lnkLogout_Click" Visible="False">Logout</asp:LinkButton></li>
+              </ul>
+            </div><!--/.navbar-collapse -->
+          </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-        <div id="navbarRight" class="navbar-form navbar-right" role="form" runat="server">
-        </div>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </nav>
         <!-- Docs page layout -->
 
     <div class="container">
         <div class="bs-docs-header" id="content">
           <div class="container">            
-                <form id="form1" runat="server">
                   
                   <div id="div_Notlogin" runat ="server" visible ="True">
                     <div class="container">
@@ -77,7 +79,7 @@
                     </div>
                     <asp:Label ID="lblError" runat="server" ForeColor="Red"/>
                     <br />
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-3">
                             <label>Subject </label>
                             <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" placeholder="Example: COP"/>
                             <asp:Button ID="btnCheckSubject" runat="server" OnClick="btnCheckSubject_Click" Text="Check" CssClass="btn btn-default btn-sm"/>
@@ -93,9 +95,13 @@
                                 <asp:ListItem Value="">Section Number</asp:ListItem>
                         </asp:DropDownList>
                         <br />
-                        <label>Note Date: </label>
+                        <label>Date Notes Taken: </label>
                         <br />
-                        <asp:Calendar ID="Calendar_NoteDate" runat="server" Enabled="False" OnSelectionChanged="Calendar_Change"/>
+
+                        <!--- HERE IS THE CALENDAR -->
+                        <asp:Calendar ID="Calendar_NoteDate" runat="server" Enabled="False" OnSelectionChanged="Calendar_Change" CssClass="datepicker"/>
+                        Insert new calendar below.
+                        <br />
                         
                    </div>
                    <div class="container-fluid">         
@@ -118,7 +124,6 @@
                    </div>   
 
                   </div>
-                 </form>
 
 
           </div>
@@ -145,5 +150,6 @@
             });
         </script>
 
+    </form>
     </body>
 </html>

@@ -26,6 +26,7 @@
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
     <body>
+    <form id="form1" runat="server">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -47,7 +48,6 @@
           <div class="container">
             <h1>Login</h1>
             <p>Login to study-resource wonderland!</p>
-             <form id="form1" runat="server">
                 <div class="form-group col-lg-4">
 				    <label>Email</label>
                     <asp:TextBox  runat="server" id="txtEmail" CssClass="form-control" value="" />
@@ -70,7 +70,6 @@
                  <br /> <br />
                  <asp:LinkButton ID="lnkForgotPass" runat="server" OnClick="lnkForgotPass_Click" Visible="False">Forgot Password?</asp:LinkButton>
                    
-              </form>
           </div>
         </div>
     </div>
@@ -86,5 +85,6 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
+    </form>
     </body>
 </html>
