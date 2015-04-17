@@ -152,7 +152,7 @@
                                 <br />
                                 <br />
                             </td>
-                            <td class="auto-style6"><asp:Button ID="btnDownload" runat="server" OnClick="btnDownload_Click" Text="View Online" /></td>
+                            <td class="auto-style6"><asp:Button ID="btnDownload" runat="server" OnClick="btnDownload_Click" Text="View Online" OnClientClick="target=&quot;_blank&quot;" /></td>
                             <td> </td>
                         </tr>
                     </table>

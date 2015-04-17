@@ -99,9 +99,18 @@
                         <br />
 
                         <!--- HERE IS THE CALENDAR -->
-                        <asp:Calendar ID="Calendar_NoteDate" runat="server" Enabled="False" OnSelectionChanged="Calendar_Change" CssClass="datepicker"/>
-                        Insert new calendar below.
-                        <br />
+                        <asp:Calendar ID="Calendar_NoteDate" runat="server" Enabled="False" OnSelectionChanged="Calendar_Change" CssClass="datepicker" WeekendDayStyle-Wrap="True" BackColor="White" BorderColor="Blue" BorderStyle="Solid" DayHeaderStyle-BackColor="#33CC33" BorderWidth="1px" Font-Names="Arial" >
+
+                        
+                        
+<DayHeaderStyle BackColor="Blue" ForeColor="White"></DayHeaderStyle>
+
+                            <TitleStyle BackColor="#0000CC" ForeColor="White" />
+
+<WeekendDayStyle Wrap="True"></WeekendDayStyle>
+                            </asp:Calendar>
+
+                        
                         
                    </div>
                    <div class="container-fluid">         
@@ -149,6 +158,7 @@
 
             });
         </script>
+
 
     </form>
     </body>
