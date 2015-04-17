@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Users]
+CREATE TABLE [dbo].[Users]
 (
 	[userId] [int] IDENTITY(1,1) NOT NULL,
 	[email] [nchar](75) NOT NULL,
@@ -154,14 +154,16 @@ CREATE TABLE [dbo].[Comments]
 	CONSTRAINT [FK_Comments_Notes] FOREIGN KEY([noteId]) REFERENCES [dbo].[Notes] ([noteId])
 );
 
-CREATE TABLE [dbo].[UserNotes](
-	[UserId] [int] NOT NULL,
-	[NoteId] [int] NOT NULL,
-	[Voted] [bit] NULL,
-	[Flagged] [bit] NULL,
- CONSTRAINT [PK_UserNotes] PRIMARY KEY CLUSTERED 
-(
-	[UserId] ASC,
-	[NoteId] ASC
-));
 
+CREATE TABLE [dbo].[VotingCheck]
+(
+    [vId] [INT] IDENTITY (1, 1) NOT NULL , 
+    [userId] [INT] NOT NULL, 
+    [noteId] [INT] NOT NULL, 
+    [voted] [BIT] NOT NULL DEFAULT 0, 
+    [flagged] [BIT] NOT NULL DEFAULT 0,
+    CONSTRAINT [PK_VotingCheck] PRIMARY KEY CLUSTERED 
+	(
+		[vId] ASC
+	)
+);
