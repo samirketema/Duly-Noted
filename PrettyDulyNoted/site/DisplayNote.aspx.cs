@@ -12,7 +12,7 @@ public partial class DisplayNote : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-                if (Session["dulyNoted"] != null)
+        if (Session["dulyNoted"] != null)
         {
             lnkLogin.Visible = false;
             lnkLogout.Visible = true;

@@ -54,7 +54,7 @@
         <div class="bs-docs-header" id="content">
           <div class="container">
             <h1>Member Portal</h1>
-                  <div id="div_Notlogin" runat ="server" visible ="True">
+            <div id="div_Notlogin" runat ="server" visible ="True">
                     <div class="container">
                         <h1>You are not logged in!</h1>
                         <p>You should be redirected to the Duly Noted Login page shortly.</p>
@@ -62,35 +62,99 @@
                         <p><a class="btn btn-primary btn-sm" href="Login.aspx?ReturnURL=Member.aspx" role="button">Login &raquo;</a></p>
                     </div>
                   </div>
-
-
-                    <div id="div1" runat="server" visible="False">
-                        <table>
-                            <tr>
-                                <td>Welcome:</td>
-                                <td><asp:Label ID="lblDisplayname" runat="server"/></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                            </tr>
-
-                        </table>
+            <div id="div1" runat="server" visible="False">
+                <table>
+                    <tr>
+                        <td>Welcome:</td>
+                        <td><asp:Label ID="lblDisplayname" runat="server"/></td>
+                    </tr>
+                    <tr>
+                        <td> <br /></td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td><asp:Button ID="btnProfile" runat="server" text="Profile" OnClick="btnProfile_Click" CssClass="btn btn-primary"/></td>
+                        <td><asp:Button ID="btnNotes" runat="server" text="Notes" OnClick="btnNotes_Click" CssClass="btn btn-primary"/></td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+                <!-- profile part -->
+                <div runat="server" id="divProfile">
+                    <div class="form-group col-lg-6">
+                        <h4>Password Management</h4>
+                        <asp:label ID="lblError" runat="server" ForeColor="Red" />
+                        <div style="border: medium dashed #000080; padding: 10px">
+                        <label>Current Password</label>
+                        <asp:TextBox ID="txtCurrentPass" runat="server" TextMode="Password" CssClass="form-control"/>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Enter Current Password" ForeColor="Red" ControlToValidate="txtCurrentPass" ValidationGroup="grpSubmit" Display="Dynamic"/>
+                        <br />
+                        <label>New Password</label>
+                        <asp:TextBox ID="txtNewPass" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Enter New Password" ForeColor="Red" ControlToValidate="txtNewPass" ValidationGroup="grpSubmit" Display="Dynamic"/>
+                        <br />
+                        <label>Repeat New Password</label>
+                        <asp:TextBox ID="txtConfirmPass" runat="server" TextMode="Password" CssClass="form-control"/>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Enter Confirm Password" ForeColor="Red" ControlToValidate="txtConfirmPass" ValidationGroup="grpSubmit" Display="Dynamic"/>
+                        <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Confirm Password does not match" ControlToCompare="txtNewPass" ControlToValidate="txtConfirmPass" ForeColor="Red" ValidationGroup="grpSubmit" Display="Dynamic"/>
+                        <br />
+                        <asp:Button ID="btnChangePass" runat="server" ValidationGroup="grpSubmit" OnClick="btnChangePass_Click" Text="Change Password" CssClass="btn btn-primary"/>
+                        <br />
+                        </div>
                         <br />
                         <br />
+                        <h4>Account Management</h4> <br />
                         <asp:LinkButton ID="lnkDel" runat="server" OnClientClick="return confirm('Are you sure? This will also delete all your notes.');" OnClick="lnkDel_Click" Text="Delete Account" CssClass="btn btn-primary"/>
                         <br />
-                        <br />
-                        <asp:LinkButton ID="lnkChangePass" runat="server" OnClick="lnkChangePass_Click" Text="Change Password" CssClass="btn btn-primary" />
-                        <br />
-                        <br />
-                        <asp:LinkButton ID="lnkLogOut" runat="server" OnClick="lnkLogOut_Click" Text="Logout" CssClass="btn btn-primary"/>
-    
                     </div>
+                                            
+                   
+                     
+                   <!-- <asp:LinkButton ID="lnkChangePass" runat="server" OnClick="lnkChangePass_Click" Text="Change Password" CssClass="btn btn-primary" />
+                    <br />
+                    -->                    
+                </div>
+                <!--Note part -->
+                <div runat="server" id="divNotes">
+                    <asp:Label ID="lblResult" runat="server" />
+                    <br />
+                    <br />
+                    <asp:GridView ID="GridView1" runat="server"
+                    AllowSorting ="true" AllowPaging="true" PageSize="10"
+                    AutoGenerateColumns="false" DataKeyNames="nId"
+                    OnPageIndexChanged="GridView1_PageIndexChanged" 
+                    OnPageIndexChanging="GridView1_PageIndexChanging" 
+                    OnSorted ="GridView1_Sorted"
+                    OnSorting="GridView1_Sorting"  CssClass="table table-hover table-striped" GridLines="None">
 
+                    <Columns>
+                        <asp:BoundField DataField ="Subject" HeaderText="Subject"
+                            SortExpression="Subject" ReadOnly="true" />
+                        <asp:BoundField DataField ="CourseNumber" HeaderText="Course Number"
+                            SortExpression="CourseNumber" ReadOnly="true" />
+                        <asp:BoundField DataField ="Section" HeaderText="Section"
+                             ReadOnly="true" />
+                        <asp:BoundField DataField ="Title" HeaderText="Note Title"
+                            SortExpression="Title" ReadOnly="true" />
+                        <asp:BoundField DataField="UpVote" HeaderText="Up Vote"
+                            SortExpression="UpVote" />
+                        <asp:BoundField DataField="DownVote" HeaderText="Down Vote"
+                            SortExpression="DownVote" />
+                        <asp:BoundField DataField="Flag" HeaderText="Flag"
+                            SortExpression="Flag" /> 
+                        <asp:BoundField DataField="prettyNoteDate" HeaderText="Note Date"
+                            SortExpression="NoteDate" />
+                        <asp:BoundField DataField="prettyUploadDate" HeaderText="Upload Date"
+                            SortExpression="UploadDate" />
+                        <asp:HyperLinkField DataNavigateUrlFields="nId" 
+                                            DataNavigateUrlFormatString="~/DisplayNote.aspx?Note={0}"
+                                            Text="View Note"/> 
+                    </Columns>
+                </asp:GridView>
+                </div>                        
+            </div>
           </div>
         </div>
-    </div>
-
       <hr>
 
       <footer>

@@ -7,11 +7,7 @@ using System.Web.UI.WebControls;
 
 public partial class SearchResult : System.Web.UI.Page
 {
-    protected int getSid()
-    {
-        return (string.IsNullOrEmpty(Request.QueryString["sId"])) ? (int)-1 : int.Parse(Request.QueryString["sId"]);
-    }
-
+   
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["dulyNoted"] != null)
@@ -57,9 +53,15 @@ public partial class SearchResult : System.Web.UI.Page
         Session.Abandon();
         Response.Redirect("~/LogoutConfirm.aspx");
     }
+    protected int getSid()
+    {
+        return (string.IsNullOrEmpty(Request.QueryString["sId"])) ? (int)-1 : int.Parse(Request.QueryString["sId"]);
+    }
 
-
-
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Search.aspx");
+    }
 
     //bind data to the gridview
     protected void BindData(int sId)
@@ -214,8 +216,6 @@ public partial class SearchResult : System.Web.UI.Page
             Response.Redirect("~/Search.aspx");
  
     }
-    protected void btnReturn_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/Search.aspx");
-    }
+
+
 }

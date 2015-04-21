@@ -72,7 +72,7 @@ public partial class ChangeTemp: System.Web.UI.Page
         }
         else //no match
         {
-            lblError.Text = "Please Check your current password again!";
+            lblError.Text = "Please Check your Temporary password again!";
         }
 
     }
