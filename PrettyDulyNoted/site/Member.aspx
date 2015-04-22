@@ -120,8 +120,8 @@
                     <br />
                     <br />
                     <asp:GridView ID="GridView1" runat="server"
-                    AllowSorting ="true" AllowPaging="true" PageSize="10"
-                    AutoGenerateColumns="false" DataKeyNames="nId"
+                    AllowSorting ="True" AllowPaging="True" PageSize ="10"
+                    AutoGenerateColumns="False" DataKeyNames="nId"
                     OnPageIndexChanged="GridView1_PageIndexChanged" 
                     OnPageIndexChanging="GridView1_PageIndexChanging" 
                     OnRowDeleting="GridView1_RowDeleting"
@@ -150,7 +150,11 @@
                         <asp:HyperLinkField DataNavigateUrlFields="nId" 
                                             DataNavigateUrlFormatString="~/DisplayNote.aspx?Note={0}"
                                             Text="View Note"/> 
-                        <asp:CommandField HeaderText="" ShowDeleteButton="true" />
+                        <asp:TemplateField ShowHeader="False">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete this event?');"/>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
                 </div>                        
