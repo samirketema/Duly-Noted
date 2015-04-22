@@ -329,4 +329,27 @@ public partial class Member : System.Web.UI.Page
         BindData();
     }
 
+    //delete note
+    protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        //get note Id
+        int nId = int.Parse(GridView1.DataKeys[e.RowIndex].Value.ToString());
+
+        var dc = new DulyDBDataContext();
+/*      This is one way to get the note to delete
+        var note = (from n in dc.Notes
+                    where n.noteId == nId
+                    select n).Single();
+
+        dc.Notes.DeleteOnSubmit(note);
+*/
+
+        //same as above but using LAMBDA
+        dc.Notes.DeleteOnSubmit(dc.Notes.Single(n => n.noteId == nId));
+
+        dc.SubmitChanges();
+
+        BindData();
+    }
+
 }

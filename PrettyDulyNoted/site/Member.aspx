@@ -124,6 +124,7 @@
                     AutoGenerateColumns="false" DataKeyNames="nId"
                     OnPageIndexChanged="GridView1_PageIndexChanged" 
                     OnPageIndexChanging="GridView1_PageIndexChanging" 
+                    OnRowDeleting="GridView1_RowDeleting"
                     OnSorted ="GridView1_Sorted"
                     OnSorting="GridView1_Sorting"  CssClass="table table-hover table-striped" GridLines="None">
 
@@ -149,6 +150,7 @@
                         <asp:HyperLinkField DataNavigateUrlFields="nId" 
                                             DataNavigateUrlFormatString="~/DisplayNote.aspx?Note={0}"
                                             Text="View Note"/> 
+                        <asp:CommandField HeaderText="" ShowDeleteButton="true" />
                     </Columns>
                 </asp:GridView>
                 </div>                        
