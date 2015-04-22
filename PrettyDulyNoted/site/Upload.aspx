@@ -119,13 +119,14 @@
                         <br />
                         <asp:FileUpload ID="FileUpload1" runat="server" Enabled="False" data-filename-placement="inside"/><br />
                         <label>Title: </label>
-                        <asp:TextBox ID="NoteTitle" runat="server" Enabled ="False" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="NoteTitle" runat="server" Enabled ="False" CssClass="form-control"/>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter Note Title" ControlToValidate="NoteTitle" ForeColor="Red" ValidationGroup="grpUpload"/>
                         <br />
                         <label>Description: </label>
-                        <asp:TextBox ID="NoteDescription" runat="server" Enabled ="False" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="NoteDescription" runat="server" Enabled ="False" CssClass="form-control"/>
                         <br />
                         <asp:Button ID="UploadButton" runat="server" OnClick="UploadButton_Click" 
-                         Text="Upload File" Enabled="False"  CssClass="btn btn-primary" />&nbsp;<br />
+                         Text="Upload File" Enabled="False"  CssClass="btn btn-primary" ValidationGroup="grpUpload"/>&nbsp;<br />
                         <br />
                         <asp:Label ID="UploadLabel1" runat="server"></asp:Label>
                         <asp:Label ID="UploadLabel2" runat="server"></asp:Label>

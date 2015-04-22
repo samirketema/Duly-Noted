@@ -105,6 +105,9 @@ public partial class Upload : System.Web.UI.Page
                     dc.SubmitChanges();
                     
                     //AFTER THE FILE IS UPLOADED HERE
+
+                    NoteTitle.Text = "";
+                    NoteDescription.Text = "";
                     
                 }
                 else
