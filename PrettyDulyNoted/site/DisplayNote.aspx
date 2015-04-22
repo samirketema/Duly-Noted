@@ -152,8 +152,10 @@
                                 <br />
                                 <br />
                             </td>
-                            <td class="auto-style6"><asp:Button ID="btnDownload" runat="server" OnClick="btnDownload_Click" Text="View Online" OnClientClick="target=&quot;_blank&quot;" CssClass="btn btn-default btn-sm" /></td>
-                            <td> </td>
+                            <td class="auto-style6">
+                                <asp:Button ID="btnView" runat="server" Text="View Online" OnClientClick="target=&quot;_blank&quot;" CssClass="btn btn-default btn-sm" OnClick="btnView_Click" />
+                                <asp:Button ID="btnDown" runat="server" OnClick="btnDownload_Click" Text="Download" OnClientClick="target=&quot;_blank&quot;" CssClass="btn btn-default btn-sm" />
+                            </td>
                         </tr>
                     </table>
                 </div>

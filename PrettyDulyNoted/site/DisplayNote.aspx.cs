@@ -138,13 +138,30 @@ public partial class DisplayNote : System.Web.UI.Page
         {
             var query = getNote();
 
-            //download
-            Response.Redirect(query.source);
+            //get the virtual path
+            var path = VirtualPathUtility.ToAppRelative(new Uri(query.source).AbsolutePath);
+
+            //download dialog
+            Response.AppendHeader("Content-Disposition", "attachment; filename=\"" + query.title +"\"");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
         }
         else
             doLogin();
     }
 
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        if (Session["dulyNoted"] != null)
+        {
+            var query = getNote();
+
+            //View
+            Response.Redirect(query.source);
+        }
+        else
+            doLogin();
+    }
     protected void doLogin ()
     {
         //modify this to the current page name
@@ -272,4 +289,5 @@ public partial class DisplayNote : System.Web.UI.Page
         //return to member page
         Response.Redirect("~/Member.aspx");
     }
+
 }
