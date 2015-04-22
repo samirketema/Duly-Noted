@@ -35,19 +35,28 @@ public partial class SearchResult : System.Web.UI.Page
         }        
     }
 
+    protected void doLogin()
+    {
+        //modify this to the current page name
+        string returnUrl = "SearchResult.aspx?sId=" + Request.QueryString["sId"];
+        Response.Redirect("~/Login.aspx?ReturnURL=" + returnUrl);
+    }
+
     protected void btnSignUp_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Register.aspx");
     }
+
     protected void lnkMember_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Member.aspx");
     }
+
     protected void lnkLogin_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Login.aspx?ReturnURL=SearchResult.aspx");
-
+        doLogin();
     }
+
     protected void lnkLogout_Click(object sender, EventArgs e)
     {
         Session.Abandon();
@@ -213,8 +222,7 @@ public partial class SearchResult : System.Web.UI.Page
         if (sId != -1)
             BindData(sId);
         else
-            Response.Redirect("~/Search.aspx");
- 
+            Response.Redirect("~/Search.aspx"); 
     }
 
 

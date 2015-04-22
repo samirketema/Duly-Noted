@@ -58,6 +58,9 @@ public partial class DisplayNote : System.Web.UI.Page
                         btnUpVote.Enabled = false;
                         btnDownVote.Enabled = false;
                         btnFlag.Enabled = false;
+
+                        //enable delete button
+                        btnDel.Visible = true;
                     }
                     else //others
                         handlingVotingButtons(int.Parse(Session["dulyNoted"].ToString()));
@@ -139,22 +142,21 @@ public partial class DisplayNote : System.Web.UI.Page
             Response.Redirect(query.source);
         }
         else
-        {
-            //modify this to the current page name
-            string returnUrl ="DisplayNote.aspx?Note="+ Request.QueryString["Note"];
-            Response.Redirect("~/Login.aspx?ReturnURL="+ returnUrl);
-        }
+            doLogin();
+    }
+
+    protected void doLogin ()
+    {
+        //modify this to the current page name
+        string returnUrl = "DisplayNote.aspx?Note=" + Request.QueryString["Note"];
+        Response.Redirect("~/Login.aspx?ReturnURL=" + returnUrl);
     }
 
     protected void rating (string action)
     {
         //check for logged in
         if (Session["dulyNoted"] == null)
-        {
-            //modify this to the current page name
-            string returnUrl = "DisplayNote.aspx?Note=" + Request.QueryString["Note"];
-            Response.Redirect("~/Login.aspx?ReturnURL=" + returnUrl);
-        }
+            doLogin();
         else
         {
             int nId = int.Parse(Request.QueryString["Note"]);
@@ -250,8 +252,7 @@ public partial class DisplayNote : System.Web.UI.Page
     }
     protected void lnkLogin_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Login.aspx?ReturnURL=DisplayNote.aspx");
-
+        doLogin();
     }
     protected void lnkLogout_Click(object sender, EventArgs e)
     {
@@ -259,4 +260,16 @@ public partial class DisplayNote : System.Web.UI.Page
         Response.Redirect("~/LogoutConfirm.aspx");
     }
 
+    protected void btnDel_Click(object sender, EventArgs e)
+    {
+        int nId = int.Parse(Request.QueryString["Note"]);
+        var dc = new DulyDBDataContext();
+
+        //delete the note from the database
+        dc.Notes.DeleteOnSubmit(dc.Notes.Single(n => n.noteId == nId));
+        dc.SubmitChanges();
+
+        //return to member page
+        Response.Redirect("~/Member.aspx");
+    }
 }

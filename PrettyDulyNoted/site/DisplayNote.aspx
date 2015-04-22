@@ -112,7 +112,7 @@
                         <tr>
                             <td class="auto-style11">Uploader:</td>
                             <td class="auto-style6"> <asp:Label ID="lblUploader" runat="server" /></td>
-                            <td></td>
+                            <td><asp:Button ID ="btnDel" runat="server" Text="Delete Note" OnClientClick="return confirm('Do you want to delete this Note?');" OnClick="btnDel_Click" Visible="False" CssClass="btn btn-default btn-sm"/></td>
                         </tr>
                         <tr>
                             <td class="auto-style11">Uploaded date:</td>
@@ -152,7 +152,7 @@
                                 <br />
                                 <br />
                             </td>
-                            <td class="auto-style6"><asp:Button ID="btnDownload" runat="server" OnClick="btnDownload_Click" Text="View Online" OnClientClick="target=&quot;_blank&quot;" /></td>
+                            <td class="auto-style6"><asp:Button ID="btnDownload" runat="server" OnClick="btnDownload_Click" Text="View Online" OnClientClick="target=&quot;_blank&quot;" CssClass="btn btn-default btn-sm" /></td>
                             <td> </td>
                         </tr>
                     </table>

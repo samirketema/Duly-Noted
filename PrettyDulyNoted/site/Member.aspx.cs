@@ -316,7 +316,6 @@ public partial class Member : System.Web.UI.Page
         }
     }
 
-
     //paging
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
@@ -329,6 +328,5 @@ public partial class Member : System.Web.UI.Page
     {
         BindData();
     }
-
 
 }
