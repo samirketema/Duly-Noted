@@ -42,19 +42,24 @@ public partial class Upload : System.Web.UI.Page
     {
         string res="";
 
-        for (int i = 0; i < 5; i++)
-        {
-            //random number
-            Random rand = new Random((int)DateTime.Now.Ticks);
-            int RandomNumber;
-            RandomNumber = rand.Next(100000, 999999);
+        //1st one
+        //random number
+        Random rand = new Random((int)DateTime.Now.Ticks);
+        int RandomNumber;
+        RandomNumber = rand.Next(100000, 999999);
 
-            //random char
-            int CharCode = rand.Next(Convert.ToInt32('a'), Convert.ToInt32('z'));
-            char RandomChar = Convert.ToChar(CharCode);
+        //random char
+        int CharCode = rand.Next(Convert.ToInt32('a'), Convert.ToInt32('z'));
+        char RandomChar = Convert.ToChar(CharCode);
 
-            res = res + RandomChar + RandomNumber;
-        }
+        res = res + RandomChar + RandomNumber;
+
+        //2nd one
+        RandomNumber = rand.Next(1000, 9999);
+        CharCode = rand.Next(Convert.ToInt32('a'), Convert.ToInt32('z'));
+        RandomChar = Convert.ToChar(CharCode);
+        
+        res = res + RandomChar + RandomNumber;
 
         return res;
     }
@@ -69,10 +74,11 @@ public partial class Upload : System.Web.UI.Page
                 {
                     DulyDBDataContext dc = new DulyDBDataContext();
 
-                    string extension = System.IO.Path.GetExtension(FileUpload1.FileName);
+                    //string extension = System.IO.Path.GetExtension(FileUpload1.FileName);
                     
                     //generate RandomName
-                    string newFileName = randomName() + extension;
+                    //string newFileName = randomName() + extension;
+                    string newFileName = randomName() + "_" + FileUpload1.FileName;
 
                     FileUpload1.SaveAs(HttpContext.Current.Server.MapPath("~") + "/Uploads/" +
                          newFileName);
