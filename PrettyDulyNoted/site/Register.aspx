@@ -66,7 +66,7 @@
 				
 				    <div class="form-group col-lg-6">
 					    <label>Password</label>
-                        <asp:TextBox ID="txtPassword" runat="server" value="" TextMode="Password"  CssClass="form-control" />
+                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"  CssClass="form-control" />
 
                   &nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" ErrorMessage="Enter a password." ForeColor="Red" Display="Dynamic" ValidationGroup="grpSubmit"></asp:RequiredFieldValidator>
 
@@ -74,7 +74,7 @@
 				
 				    <div class="form-group col-lg-6">
 					    <label>Repeat Password</label>
-                        <asp:TextBox ID="txtConfirmPassword" runat="server" class="form-control" value="" TextMode="Password" type="password"  CssClass="form-control" />
+                        <asp:TextBox ID="txtConfirmPassword" runat="server" class="form-control" TextMode="Password" type="password"  CssClass="form-control" />
                         <asp:CompareValidator ErrorMessage="Passwords do not match." ForeColor="Red" ControlToCompare="txtPassword" ControlToValidate="txtConfirmPassword" runat="server" ID="CompareValidator1" Display="Dynamic" ValidationGroup="grpSubmit"/>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtConfirmPassword" ErrorMessage="Enter your password again." ForeColor="Red" Display="Dynamic" ValidationGroup="grpSubmit"/>
 
@@ -103,11 +103,12 @@
                     
 				    <div class="form-group col-lg-12">
 					    <label>Email Address</label>
-					    <asp:TextBox ID="txtEmail" runat="server" class="form-control" value="" CssClass="form-control" />
+					    <asp:TextBox ID="txtEmail" runat="server" class="form-control" CssClass="form-control" />
 
                     &nbsp;<asp:RequiredFieldValidator ErrorMessage="Enter Email" Display="Dynamic" ForeColor="Red"
                         ControlToValidate="txtEmail" runat="server" ID="RequiredFieldValidator3" ValidationGroup="grpSubmit" />
-                    &nbsp;<asp:RegularExpressionValidator runat="server" Display="Dynamic" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                    &nbsp;<asp:RegularExpressionValidator runat="server" Display="Dynamic" 
+                        ValidationExpression="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|ucf.edu)\b"
                         ControlToValidate="txtEmail" ForeColor="Red" ErrorMessage="Invalid email address." ID="RegularExpressionValidator1" ValidationGroup="grpSubmit" />
 				    </div>
 						

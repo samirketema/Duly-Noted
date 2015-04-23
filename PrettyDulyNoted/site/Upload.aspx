@@ -117,7 +117,10 @@
                     <div class="form-group col-md-4">
                         <label>File Upload:</label>
                         <br />
-                        <asp:FileUpload ID="FileUpload1" runat="server" Enabled="False" data-filename-placement="inside"/><br />
+                        <asp:FileUpload ID="FileUpload1" runat="server" Enabled="False" data-filename-placement="inside"/>
+                        <asp:RegularExpressionValidator ID="uplValidator" runat="server" ControlToValidate="FileUpload1" ErrorMessage="only .pdf format is allowed" 
+                            ValidationExpression="(.+\.([Pp][Dd][Ff]))" ForeColor="Red" />
+                        <br />
                         <label>Title: </label>
                         <asp:TextBox ID="NoteTitle" runat="server" Enabled ="False" CssClass="form-control"/>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter Note Title" ControlToValidate="NoteTitle" ForeColor="Red" ValidationGroup="grpUpload"/>
