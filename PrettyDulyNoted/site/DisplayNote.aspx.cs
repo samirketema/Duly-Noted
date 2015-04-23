@@ -5,10 +5,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 using System.Net;
+
+using Persits.PDF;
+
 public partial class DisplayNote : System.Web.UI.Page
 {
+   
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -47,6 +50,8 @@ public partial class DisplayNote : System.Web.UI.Page
                 
                 lblUploader.Text = uploader.displayName;
                 lblDescription.Text = currentNote.description;
+
+                ibtnPreview.ImageUrl = currentNote.preview;
 
                 //handle voting buttons
                 if (Session["dulyNoted"] != null)
@@ -142,7 +147,7 @@ public partial class DisplayNote : System.Web.UI.Page
             var path = VirtualPathUtility.ToAppRelative(new Uri(query.source).AbsolutePath);
 
             //download dialog
-            Response.AppendHeader("Content-Disposition", "attachment; filename=\"" + query.title +"\"");
+            Response.AppendHeader("Content-Disposition", "attachment; filename=\"" + query.title +".pdf\"");
             Response.TransmitFile(Server.MapPath(path));
             Response.End();
         }
@@ -290,4 +295,10 @@ public partial class DisplayNote : System.Web.UI.Page
         Response.Redirect("~/Member.aspx");
     }
 
+    protected void ibtnPreview_Click(object sender, ImageClickEventArgs e)
+    {
+        var note = getNote();
+        Response.Redirect(note.preview);
+    }
+   
 }

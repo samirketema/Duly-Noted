@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using Persits.PDF;
+
 public partial class Upload : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -74,14 +76,33 @@ public partial class Upload : System.Web.UI.Page
                 {
                     DulyDBDataContext dc = new DulyDBDataContext();
 
-                    //string extension = System.IO.Path.GetExtension(FileUpload1.FileName);
+                    //get the extension
+                    string extension = System.IO.Path.GetExtension(FileUpload1.FileName);                    
                     
                     //generate RandomName
-                    //string newFileName = randomName() + extension;
-                    string newFileName = randomName() + "_" + FileUpload1.FileName;
+                    string random = randomName();
+                    string newFileName = random + extension;
 
                     FileUpload1.SaveAs(HttpContext.Current.Server.MapPath("~") + "/Uploads/" +
                          newFileName);
+
+
+                    //THIS IS WHERE THE PREVIEW IMG IS CREATED
+                    //open the document
+                    PdfManager objPdf = new PdfManager();
+                    PdfDocument objDoc = objPdf.OpenDocument(HttpContext.Current.Server.MapPath("~") + "/Uploads/" + newFileName);
+
+                    //get the first page
+                    PdfPage firstPage = objDoc.Pages[1];
+
+                    //convert to img
+                    PdfPreview objPreview = firstPage.ToImage("ResolutionX=100; ResolutionY=100");
+
+                    //save                    
+                    objPreview.Save(HttpContext.Current.Server.MapPath("~") + "/Preview/" + random + ".png", true);
+                    //END OF PREVIEW
+                    
+                    
                     //test link
                     hyperlink.NavigateUrl = "http://dulynoted-001-site1.smarterasp.net/Uploads/" + newFileName;
                     hyperlink.Visible = true;
@@ -95,6 +116,7 @@ public partial class Upload : System.Web.UI.Page
                         upVoteCounter = 0,
                         downVoteCounter = 0,
                         source = "http://dulynoted-001-site1.smarterasp.net/Uploads/" + newFileName,
+                        preview = "http://dulynoted-001-site1.smarterasp.net/Preview/" + random+".png",
                         title = NoteTitle.Text,
                         description = NoteDescription.Text,
                         noteDate = Calendar_NoteDate.SelectedDate,
@@ -208,6 +230,5 @@ public partial class Upload : System.Web.UI.Page
         Session.Abandon();
         Response.Redirect("~/LogoutConfirm.aspx");
     }
-
 
 }

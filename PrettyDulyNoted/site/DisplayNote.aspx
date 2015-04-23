@@ -19,57 +19,7 @@
             body {
                 padding-top: 50px;
                 padding-bottom: 20px;
-            }
-            .auto-style2 {
-                height: 57px;
-            }
-            .auto-style3 {
-                height: 83px;
-            }
-            .auto-style4 {
-                height: 94px;
-            }
-            .auto-style5 {
-                height: 61px;
-            }
-            .auto-style6 {
-                width: 506px;
-            }
-            .auto-style7 {
-                height: 94px;
-                width: 506px;
-            }
-            .auto-style8 {
-                height: 83px;
-                width: 506px;
-            }
-            .auto-style9 {
-                height: 57px;
-                width: 506px;
-            }
-            .auto-style10 {
-                height: 61px;
-                width: 506px;
-            }
-            .auto-style11 {
-                width: 153px;
-            }
-            .auto-style12 {
-                height: 94px;
-                width: 153px;
-            }
-            .auto-style13 {
-                height: 83px;
-                width: 153px;
-            }
-            .auto-style14 {
-                height: 57px;
-                width: 153px;
-            }
-            .auto-style15 {
-                height: 61px;
-                width: 153px;
-            }
+                }
         </style>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
@@ -78,7 +28,7 @@
     </head>
     <body>
     <form id="form1" runat="server">
-     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" runat="server">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -89,7 +39,7 @@
               </button>
               <a class="navbar-brand" href="Default.aspx">Duly Noted</a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
+            <div id="navbar" class="navbar-collapse collapse" runat="server">
                 <ul class="nav navbar-nav navbar-right">
                 <li><asp:LinkButton ID="lnkMember" runat="server" OnClick="lnkMember_Click">Your Profile</asp:LinkButton></li>
                 <li><asp:LinkButton ID="lnkRegister" runat="server" OnClick="btnSignUp_Click">Register</asp:LinkButton></li>
@@ -98,7 +48,7 @@
               </ul>
             </div><!--/.navbar-collapse -->
           </div>
-        </div><!-- Docs page layout -->
+    </div><!-- Docs page layout -->
 
     <div class="container" runat ="server">
         <div class="bs-docs-header" id="content" runat="server">
@@ -110,51 +60,65 @@
                     <h5><asp:Label ID="lblNoteDate" runat="server" /></h5>
                     <table>
                         <tr>
-                            <td class="auto-style11">Uploader:</td>
-                            <td class="auto-style6"> <asp:Label ID="lblUploader" runat="server" /></td>
+                            <td >Uploader:</td>
+                            <td> <asp:Label ID="lblUploader" runat="server" /></td>
                             <td><asp:Button ID ="btnDel" runat="server" Text="Delete Note" OnClientClick="return confirm('Do you want to delete this Note?');" OnClick="btnDel_Click" Visible="False" CssClass="btn btn-default btn-sm"/></td>
                         </tr>
                         <tr>
-                            <td class="auto-style11">Uploaded date:</td>
-                            <td class="auto-style6"> <asp:Label ID="lblUploadedDate" runat="server" /></td>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >Uploaded date:</td>
+                            <td > <asp:Label ID="lblUploadedDate" runat="server" /></td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td class="auto-style12">Description:</td>
-                            <td class="auto-style7"> <asp:Label ID="lblDescription" runat="server" /></td>
-                            <td class="auto-style4"></td>
+                            <td>
+                                <br />
+                            </td>
                         </tr>
                         <tr>
-                            <td class="auto-style13">Preview:</td>
-                            <td class="auto-style8"> "PREVIEW / THUMBNAIL /&nbsp; sample here"</td>
-                            <td class="auto-style3"></td>
+                            <td >Description:</td>
+                            <td > <asp:Label ID="lblDescription" runat="server" /></td>
+                            <td ></td>
                         </tr>
                         <tr>
-                            <td class="auto-style14"></td>
-                            <td class="auto-style9">
+                            <td>
                                 <br />
-                                <br />
-                                <br />
-                                Rating:</td>
-                            <td class="auto-style2">&nbsp;</td>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="auto-style15"></td>
-                            <td class="auto-style10">
+                            <td >Preview:</td>
+                            <td > 
+                                <asp:ImageButton runat="server" ID="ibtnPreview" OnClick="ibtnPreview_Click" OnClientClick="target=&quot;_blank&quot;" Height="320px" ImageAlign="Left" Width="320px" />
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rating:</td>
+                            <td><br />
                                 <asp:LinkButton ID="btnUpVote" runat="server" Text="<span class='glyphicon glyphicon-thumbs-up'></span> Upvote" CssClass="btn btn-primary btn-sm" OnClick="btnUpVote_Click"></asp:LinkButton>
                                 <asp:LinkButton ID="btnDownVote" runat="server" Text="<span class='glyphicon glyphicon-thumbs-down'></span> Downvote" CssClass="btn btn-primary btn-sm" OnClick="btnDownVote_Click"></asp:LinkButton>
                                 <asp:LinkButton ID="btnFlag" runat="server" Text="<span class='glyphicon glyphicon-flag'></span> Flag" CssClass="btn btn-primary btn-sm" OnClick="btnFlag_Click"></asp:LinkButton>
-                            <td class="auto-style5">
-                                &nbsp;</td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td class="auto-style11"> 
-                                <br />
-                                <br />
+                            <td>
+                                <br /><br />
                             </td>
-                            <td class="auto-style6">
+                        </tr>
+                        <tr>
+                            <td ></td>
+                            <td>
                                 <asp:Button ID="btnView" runat="server" Text="View Online" OnClientClick="target=&quot;_blank&quot;" CssClass="btn btn-default btn-sm" OnClick="btnView_Click" />
-                                <asp:Button ID="btnDown" runat="server" OnClick="btnDownload_Click" Text="Download" OnClientClick="target=&quot;_blank&quot;" CssClass="btn btn-default btn-sm" />
+                                <asp:Button ID="btnDown" runat="server" OnClick="btnDownload_Click" Text="Download" CssClass="btn btn-default btn-sm" />
                             </td>
                         </tr>
                     </table>
