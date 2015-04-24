@@ -63,10 +63,10 @@
                         <tr>
                             <td ><h6>Uploaded by:</h6></td>
                             <td> <asp:Label ID="lblUploader" runat="server" /></td>
-                            
+                            <td><asp:Button ID ="btnDel" runat="server" Text="Delete Note" OnClientClick="return confirm('Do you want to delete this Note?');" OnClick="btnDel_Click" Visible="False" CssClass="btn btn-default btn-sm"/></td>
                         </tr>
                         <tr>
-                            <td><asp:Button ID ="btnDel" runat="server" Text="Delete Note" OnClientClick="return confirm('Do you want to delete this Note?');" OnClick="btnDel_Click" Visible="False" CssClass="btn btn-default btn-sm"/>
+                            <td>
                             </td>
                         </tr>
                         <tr>
@@ -134,13 +134,13 @@
                 <!-- THIS IS THE COMMENT PART -->
                 <div id="divComment" runat="server">
                     <h3>Comments:</h3>                    
-                    <asp:Label ID="lblComment" runat="server" Width="500px"></asp:Label>
+                    <asp:Label ID="lblComment" runat="server" Width="70%" BackColor="#CCFFFF" ForeColor="Black" BorderColor="#CCFFFF" BorderStyle="Solid" BorderWidth="10px"></asp:Label>
                     <br />
                     <br />
                     <p> Leave a comment:</p>
                     <p>
                         <asp:TextBox ID="txtCommentTextBox" runat="server" Height="100px"
-                            TextMode="MultiLine" Width="500px"></asp:TextBox>
+                            TextMode="MultiLine" Width="70%"></asp:TextBox>
                         <asp:Label ID ="lblNotLogin" runat ="server"/>
                     </p>
                     <p>
