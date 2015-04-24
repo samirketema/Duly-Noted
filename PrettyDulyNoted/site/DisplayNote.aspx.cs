@@ -59,10 +59,14 @@ public partial class DisplayNote : System.Web.UI.Page
 
                 ibtnPreview.ImageUrl = currentNote.preview;
 
-                //handle voting buttons
+                //handle voting buttons and comment
                 if (Session["dulyNoted"] != null)
                 {
-                    //case your own note
+                    //registered users can comment
+                    txtCommentTextBox.Visible = true;
+                    PostCommentButton.Visible = true;
+
+                    //you cannot vote for yourself
                     int userId = int.Parse(Session["dulyNoted"].ToString());
                     if (userId == currentNote.userId)
                     {
@@ -75,6 +79,12 @@ public partial class DisplayNote : System.Web.UI.Page
                     }
                     else //others
                         handlingVotingButtons(int.Parse(Session["dulyNoted"].ToString()));
+                }
+                else
+                {
+                    lblComment.Text = "Please login to comment";
+                    txtCommentTextBox.Visible = false;
+                    PostCommentButton.Visible = false;
                 }
             }
         }
@@ -326,43 +336,88 @@ public partial class DisplayNote : System.Web.UI.Page
             linkButton.OnClientClick = null;
         }
     }
+
+
+    //comment part
     protected void PostCommentButton_Click(object sender, EventArgs e)
     {
         if (Session["dulyNoted"] != null)
         {
-            DulyDBDataContext dc = new DulyDBDataContext();
-            int uId = int.Parse(Session["dulyNoted"].ToString());
-            int nId = int.Parse(Request.QueryString["Note"]);
-            DateTime rightnow = DateTime.Now;
-            var newComment = new Comment
-            {
-                userId = uId,
-                noteId = nId,
-                comment1 = CommentTextBox.Text,
-                commentedTime = rightnow
-            };
-            dc.Comments.InsertOnSubmit(newComment);
-            dc.SubmitChanges();
-            showComments();
+            // no blank comments 
+            if (txtCommentTextBox.Text.Trim() != "")
+            { 
+                DulyDBDataContext dc = new DulyDBDataContext();
+                int uId = int.Parse(Session["dulyNoted"].ToString());
+                int nId = int.Parse(Request.QueryString["Note"]);
+
+                //create new comment
+                var newComment = new Comment
+                {
+                    userId = uId,
+                    noteId = nId,
+                    comment1 = txtCommentTextBox.Text,
+                    commentedTime = DateTime.Now
+                };
+
+                dc.Comments.InsertOnSubmit(newComment);
+                dc.SubmitChanges();
+                showComments();
+                
+                //reset the text box
+                txtCommentTextBox.Text = "";
+            }
         }
         else
-        doLogin();
+            doLogin();
     }
+
+
     protected void showComments()
     {
+        //just reset everything
+        lblComment.Text = "";
+
+        //original code
         var dc = new DulyDBDataContext();
         int nId = int.Parse(Request.QueryString["Note"]);
-        var query = (from c in dc.Comments
-                     where c.noteId == nId
-                     orderby c.commentedTime descending
-                     select c);
+        var query = from c in dc.Comments
+                    where c.noteId == nId
+                    join u in dc.Users on c.userId equals u.userId
+                    orderby c.commentedTime ascending
+                    select new
+                    {
+                        cTime = c.commentedTime,
+                        cMsg = c.comment1,
+                        uName = u.displayName,
+                        userId = c.userId
+                    };
+
         foreach (var c in query)
         {
-            lblComment.Text += "<font size=-2>";
-            lblComment.Text += c.commentedTime;
-            lblComment.Text += "</font><br />";
-            lblComment.Text += c.comment1;
-            lblComment.Text += "<br />";
+            
+
+            //for fun
+            //you will see your own messages on the right side
+            if (Session["dulyNoted"] != null && (c.userId == int.Parse(Session["dulyNoted"].ToString())) )
+            {
+                lblComment.Text += "<font size=-2>";
+                lblComment.Text += "<span style='float:right'>commented by " + "<font color='red'>You</font>";
+                lblComment.Text += " | " + c.cTime.ToShortDateString();
+                lblComment.Text += " @ " + c.cTime.ToShortTimeString();
+                lblComment.Text += "</span></font><br />";
+                lblComment.Text += "<span style='float:right'>" + c.cMsg + " </span> <br /><br />";
+            }
+                
+            else
+            {
+                lblComment.Text += "<font size=-2>";
+                lblComment.Text += "commented by " + "<font color='red'>" + c.uName + "</font>";
+                lblComment.Text += " | " + c.cTime.ToShortDateString();
+                lblComment.Text += " @ " + c.cTime.ToShortTimeString();
+                lblComment.Text += "</font><br />";
+                lblComment.Text += c.cMsg + "<br /><br />";
+            }
+
         }
     }
 }

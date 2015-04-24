@@ -133,11 +133,13 @@
 
                 <!-- THIS IS THE COMMENT PART -->
                 <div id="divComment" runat="server">
-                    <h3>Comments:</h3>
-                    <asp:Label ID="lblComment" runat="server" Text="Comments"></asp:Label>
+                    <h3>Comments:</h3>                    
+                    <asp:Label ID="lblComment" runat="server" Width="500px"></asp:Label>
+                    <br />
+                    <br />
                     <p> Leave a comment:</p>
                     <p>
-                        <asp:TextBox ID="CommentTextBox" runat="server" Height="100px"
+                        <asp:TextBox ID="txtCommentTextBox" runat="server" Height="100px"
                             TextMode="MultiLine" Width="500px"></asp:TextBox>
                     </p>
                     <p>
