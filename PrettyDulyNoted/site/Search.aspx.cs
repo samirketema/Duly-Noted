@@ -65,7 +65,10 @@ public partial class Search : System.Web.UI.Page
                         
         }
     }
-    protected void btnCheckSubject_Click(object sender, EventArgs e)
+
+
+   
+    protected void check_Subject(object sender, EventArgs e)
     {
 
         var dc = new DulyDBDataContext();
@@ -89,7 +92,19 @@ public partial class Search : System.Web.UI.Page
             ddlCourseNumber.Items.Insert(0, new ListItem("Please Select...", "-1"));
         }
         else
+        {
             lblError.Text = "the Subject you entered does not exist";
+
+            // Clear the drop down lists, and set it to disabled.
+            ddlCourseNumber.Items.Clear();
+            ddlCourseNumber.Items.Insert(0, new ListItem("Please Select...", "-1"));
+            ddlCourseNumber.Enabled = false;
+
+            //Clear section number drop down list, just in case
+            ddlSection.Items.Clear();
+            ddlSection.Items.Insert(0, new ListItem("Please Select...", "-1"));
+            ddlSection.Enabled = false;
+        }
 
     }
 

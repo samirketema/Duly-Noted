@@ -61,8 +61,7 @@
               <br />
                 <div class="form-group col-md-2">
                     <label>Subject </label>
-                    <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" placeholder="Example: COP"/>
-                    <asp:Button ID="btnCheckSubject" runat="server" OnClick="btnCheckSubject_Click" Text="Check" CssClass="btn btn-default btn-sm"/>
+                    <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" placeholder="Example: COP" AutoPostBack="True" OnTextChanged="check_Subject"/>
                     <br />
 
                     <label>Course Number </label>
