@@ -55,14 +55,19 @@
           <div class="container" runat="server">            
                 <!-- THIS IS THE BODY OF THE WEBPAGE-->
                 <!-- THIS IS THE NOTE INFO -->
-                <div id="divNote" runat="server">
+                <br>
+                <div id="divNote" runat="server" class="well">
                     <h1><asp:Label ID ="lblTitle" runat="server" /></h1>
                     <h5><asp:Label ID="lblNoteDate" runat="server" /></h5>
                     <table>
                         <tr>
-                            <td >Uploader:</td>
+                            <td ><h6>Uploaded by:</h6></td>
                             <td> <asp:Label ID="lblUploader" runat="server" /></td>
-                            <td><asp:Button ID ="btnDel" runat="server" Text="Delete Note" OnClientClick="return confirm('Do you want to delete this Note?');" OnClick="btnDel_Click" Visible="False" CssClass="btn btn-default btn-sm"/></td>
+                            
+                        </tr>
+                        <tr>
+                            <td><asp:Button ID ="btnDel" runat="server" Text="Delete Note" OnClientClick="return confirm('Do you want to delete this Note?');" OnClick="btnDel_Click" Visible="False" CssClass="btn btn-default btn-sm"/>
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -70,7 +75,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td >Uploaded date:</td>
+                            <td ><h6>Uploaded On:</h6></td>
                             <td > <asp:Label ID="lblUploadedDate" runat="server" /></td>
                             <td></td>
                         </tr>
@@ -79,7 +84,9 @@
                                 <br />
                             </td>
                         </tr>
+                        <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
                         <tr>
+                            
                             <td >Description:</td>
                             <td > <asp:Label ID="lblDescription" runat="server" /></td>
                             <td ></td>
@@ -104,9 +111,9 @@
                         <tr>
                             <td>Rating:</td>
                             <td><br />
-                                <asp:LinkButton ID="btnUpVote" runat="server" Text="<span class='glyphicon glyphicon-thumbs-up'></span> Upvote" CssClass="btn btn-primary btn-sm" OnClick="btnUpVote_Click"></asp:LinkButton>
-                                <asp:LinkButton ID="btnDownVote" runat="server" Text="<span class='glyphicon glyphicon-thumbs-down'></span> Downvote" CssClass="btn btn-primary btn-sm" OnClick="btnDownVote_Click"></asp:LinkButton>
-                                <asp:LinkButton ID="btnFlag" runat="server" Text="<span class='glyphicon glyphicon-flag'></span> Flag" CssClass="btn btn-primary btn-sm" OnClick="btnFlag_Click"></asp:LinkButton>
+                                <asp:LinkButton ID="btnUpVote" runat="server" Text="<span class='glyphicon glyphicon-thumbs-up'></span> Upvote" CssClass="btn btn-primary btn-sm" OnClick="btnUpVote_Click" Enabled="false"></asp:LinkButton>
+                                <asp:LinkButton ID="btnDownVote" runat="server" Text="<span class='glyphicon glyphicon-thumbs-down'></span> Downvote" CssClass="btn btn-primary btn-sm" OnClick="btnDownVote_Click" Enabled="false"></asp:LinkButton>
+                                <asp:LinkButton ID="btnFlag" runat="server" Text="<span class='glyphicon glyphicon-flag'></span> Flag" CssClass="btn btn-primary btn-sm" OnClick="btnFlag_Click" Enabled="false"></asp:LinkButton>
                             <td></td>
                         </tr>
                         <tr>

@@ -21,6 +21,9 @@ public partial class DisplayNote : System.Web.UI.Page
             lnkLogout.Visible = true;
             lnkRegister.Visible = false;
             lnkMember.Visible = true;
+            btnUpVote.Enabled = true;
+            btnDownVote.Enabled = true;
+            btnFlag.Enabled = true;
         }
         else
         {
@@ -28,6 +31,9 @@ public partial class DisplayNote : System.Web.UI.Page
             lnkLogout.Visible = false;
             lnkRegister.Visible = true;
             lnkMember.Visible = false;
+            DisableLinkButton(btnUpVote);
+            DisableLinkButton(btnDownVote);
+            DisableLinkButton(btnFlag);
         }
 
         if (!IsPostBack)
@@ -45,7 +51,7 @@ public partial class DisplayNote : System.Web.UI.Page
 
                 //display
                 lblTitle.Text = currentNote.title;
-                lblNoteDate.Text = "Noted on: " +currentNote.noteDate.Value.ToShortDateString();
+                lblNoteDate.Text = "Note taken on: " +currentNote.noteDate.Value.ToShortDateString();
                 lblUploadedDate.Text = currentNote.uploadDate.Value.ToShortDateString();
                 
                 lblUploader.Text = uploader.displayName;
@@ -60,9 +66,9 @@ public partial class DisplayNote : System.Web.UI.Page
                     int userId = int.Parse(Session["dulyNoted"].ToString());
                     if (userId == currentNote.userId)
                     {
-                        btnUpVote.Enabled = false;
-                        btnDownVote.Enabled = false;
-                        btnFlag.Enabled = false;
+                        DisableLinkButton(btnUpVote);
+                        DisableLinkButton(btnDownVote);
+                        DisableLinkButton(btnFlag);
 
                         //enable delete button
                         btnDel.Visible = true;
@@ -251,11 +257,13 @@ public partial class DisplayNote : System.Web.UI.Page
     protected void btnUpVote_Click(object sender, EventArgs e)
     {
         btnUpVote.CssClass = "btn btn-success btn-sm";
+        DisableLinkButton(btnDownVote);
         rating("Up");
     }
     protected void btnDownVote_Click(object sender, EventArgs e)
     {
         btnDownVote.CssClass = "btn btn-warning btn-sm";
+        DisableLinkButton(btnUpVote);
         rating("Down");
     }
     protected void btnFlag_Click(object sender, EventArgs e)
@@ -299,6 +307,23 @@ public partial class DisplayNote : System.Web.UI.Page
     {
         var note = getNote();
         Response.Redirect(note.preview);
+    }
+
+
+    public static void DisableLinkButton(LinkButton linkButton)
+    {
+        linkButton.Attributes.Remove("href");
+        linkButton.Attributes.CssStyle[HtmlTextWriterStyle.Color] = "gray";
+        linkButton.Attributes.CssStyle[HtmlTextWriterStyle.Cursor] = "default";
+        if (linkButton.Enabled != false)
+        {
+            linkButton.Enabled = false;
+        }
+
+        if (linkButton.OnClientClick != null)
+        {
+            linkButton.OnClientClick = null;
+        }
     }
    
 }

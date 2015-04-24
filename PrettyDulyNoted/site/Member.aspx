@@ -73,18 +73,39 @@
                         <td> </td>
                     </tr>
                     <tr>
-                        <td><asp:Button ID="btnProfile" runat="server" text="Profile" OnClick="btnProfile_Click" CssClass="btn btn-primary"/></td>
-                        <td><asp:Button ID="btnNotes" runat="server" text="Notes" OnClick="btnNotes_Click" CssClass="btn btn-primary"/></td>
+
+
                     </tr>
                 </table>
+
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    
+                    
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                      <div class="btn-group" role="group">
+                        <asp:Button ID="btnProfile" runat="server" text="Profile" OnClick="btnProfile_Click" CssClass="btn btn-primary"/>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <asp:Button ID="btnNotes" runat="server" text="Notes" OnClick="btnNotes_Click" CssClass="btn btn-primary"/>
+                      </div>
+                    </div>
+                </div>
+
+<%--                        <ul class="nav nav-tabs">
+                            <li role="presentation" class="active"><asp:Button ID="btnProfile" runat="server" text="Profile" OnClick="btnProfile_Click" CssClass="tab-content"/>&nbsp;</li>
+                            <li role="presentation"><asp:Button ID="btnNotes" runat="server" text="Notes" OnClick="btnNotes_Click" CssClass="btn btn-primary"/></li>
+                        </ul>--%>
                 <br />
                 <br />
                 <!-- profile part -->
                 <div runat="server" id="divProfile">
-                    <div class="form-group col-lg-6">
+                    <div class="well">
                         <h4>Password Management</h4>
+                        <div class="panel-body">
                         <asp:label ID="lblError" runat="server" ForeColor="Red" />
-                        <div style="border: medium dashed #000080; padding: 10px">
                         <label>Current Password</label>
                         <asp:TextBox ID="txtCurrentPass" runat="server" TextMode="Password" CssClass="form-control"/>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Enter Current Password" ForeColor="Red" ControlToValidate="txtCurrentPass" ValidationGroup="grpSubmit" Display="Dynamic"/>
@@ -100,9 +121,10 @@
                         <br />
                         <asp:Button ID="btnChangePass" runat="server" ValidationGroup="grpSubmit" OnClick="btnChangePass_Click" Text="Change Password" CssClass="btn btn-primary"/>
                         <br />
+
+                        <br />
+                        <br />
                         </div>
-                        <br />
-                        <br />
                         <h4>Account Management</h4> <br />
                         <asp:LinkButton ID="lnkDel" runat="server" OnClientClick="return confirm('Are you sure? This will also delete all your notes.');" OnClick="lnkDel_Click" Text="Delete Account" CssClass="btn btn-primary"/>
                         <br />
@@ -115,7 +137,8 @@
                     -->                    
                 </div>
                 <!--Note part -->
-                <div runat="server" id="divNotes">
+                <div runat="server" id="divNotes" class="well">
+                    <h4>Note Management</h4>
                     <asp:Label ID="lblResult" runat="server" />
                     <br />
                     <br />
