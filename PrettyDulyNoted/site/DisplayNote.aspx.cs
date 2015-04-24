@@ -78,6 +78,7 @@ public partial class DisplayNote : System.Web.UI.Page
                 }
             }
         }
+        showComments();
     }
 
     //this function return the voting record
@@ -325,5 +326,43 @@ public partial class DisplayNote : System.Web.UI.Page
             linkButton.OnClientClick = null;
         }
     }
-   
+    protected void PostCommentButton_Click(object sender, EventArgs e)
+    {
+        if (Session["dulyNoted"] != null)
+        {
+            DulyDBDataContext dc = new DulyDBDataContext();
+            int uId = int.Parse(Session["dulyNoted"].ToString());
+            int nId = int.Parse(Request.QueryString["Note"]);
+            DateTime rightnow = DateTime.Now;
+            var newComment = new Comment
+            {
+                userId = uId,
+                noteId = nId,
+                comment1 = CommentTextBox.Text,
+                commentedTime = rightnow
+            };
+            dc.Comments.InsertOnSubmit(newComment);
+            dc.SubmitChanges();
+            showComments();
+        }
+        else
+        doLogin();
+    }
+    protected void showComments()
+    {
+        var dc = new DulyDBDataContext();
+        int nId = int.Parse(Request.QueryString["Note"]);
+        var query = (from c in dc.Comments
+                     where c.noteId == nId
+                     orderby c.commentedTime descending
+                     select c);
+        foreach (var c in query)
+        {
+            lblComment.Text += "<font size=-2>";
+            lblComment.Text += c.commentedTime;
+            lblComment.Text += "</font><br />";
+            lblComment.Text += c.comment1;
+            lblComment.Text += "<br />";
+        }
+    }
 }
