@@ -24,6 +24,14 @@ public partial class DisplayNote : System.Web.UI.Page
             btnUpVote.Enabled = true;
             btnDownVote.Enabled = true;
             btnFlag.Enabled = true;
+            
+            //comment
+            //registered users can comment
+            txtCommentTextBox.Visible = true;
+            PostCommentButton.Visible = true;
+            lblNotLogin.Visible = false;
+
+
         }
         else
         {
@@ -34,6 +42,12 @@ public partial class DisplayNote : System.Web.UI.Page
             DisableLinkButton(btnUpVote);
             DisableLinkButton(btnDownVote);
             DisableLinkButton(btnFlag);
+
+            //comment
+            lblNotLogin.Text = "Please log in to leave a comment!";
+            lblNotLogin.Visible = true;
+            txtCommentTextBox.Visible = false;
+            PostCommentButton.Visible = false;
         }
 
         if (!IsPostBack)
@@ -53,18 +67,15 @@ public partial class DisplayNote : System.Web.UI.Page
                 lblTitle.Text = currentNote.title;
                 lblNoteDate.Text = "Note taken on: " +currentNote.noteDate.Value.ToShortDateString();
                 lblUploadedDate.Text = currentNote.uploadDate.Value.ToShortDateString();
-                
                 lblUploader.Text = uploader.displayName;
                 lblDescription.Text = currentNote.description;
 
+                //preview
                 ibtnPreview.ImageUrl = currentNote.preview;
 
-                //handle voting buttons and comment
+                //handle voting buttons
                 if (Session["dulyNoted"] != null)
                 {
-                    //registered users can comment
-                    txtCommentTextBox.Visible = true;
-                    PostCommentButton.Visible = true;
 
                     //you cannot vote for yourself
                     int userId = int.Parse(Session["dulyNoted"].ToString());
@@ -79,12 +90,6 @@ public partial class DisplayNote : System.Web.UI.Page
                     }
                     else //others
                         handlingVotingButtons(int.Parse(Session["dulyNoted"].ToString()));
-                }
-                else
-                {
-                    lblComment.Text = "Please login to comment";
-                    txtCommentTextBox.Visible = false;
-                    PostCommentButton.Visible = false;
                 }
             }
         }

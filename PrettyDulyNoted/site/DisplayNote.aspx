@@ -141,6 +141,7 @@
                     <p>
                         <asp:TextBox ID="txtCommentTextBox" runat="server" Height="100px"
                             TextMode="MultiLine" Width="500px"></asp:TextBox>
+                        <asp:Label ID ="lblNotLogin" runat ="server"/>
                     </p>
                     <p>
                         <asp:Button ID="PostCommentButton" runat="server" Text="Post Comment"
