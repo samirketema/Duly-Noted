@@ -129,9 +129,9 @@
                     
                 </asp:GridView>
                         <br />
-                        <asp:Button ID="banBtn" runat="server"  OnSelectedIndexChanged ="banUser" 
+                        <asp:Button ID="banBtn" runat="server"  OnClick ="banUser" 
                                     CommandName="Select" Text="Ban User" Visible="True"  CssClass="btn btn-primary" />
-                        <asp:Button ID="unbanBtn" runat="server" OnSelectedIndexChanged ="unbanUser"
+                        <asp:Button ID="unbanBtn" runat="server" OnClick ="unbanUser"
                             CommandName="Select" Text="Unban User" Visible="False"  CssClass="btn btn-primary" />
 
                     </div>

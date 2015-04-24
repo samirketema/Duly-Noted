@@ -83,8 +83,33 @@ public partial class Template : System.Web.UI.Page
         divUser.Visible = true;
         lblUserName.Text = qUser.firstName;
 
+        banStatus(qUser.email);
+        /*
         var banStatus = from n in dc.BannedEmails
-                        where n.email == qUser.email
+                         where n.email == qUser.email
+                         select n;
+
+        if (banStatus.Count() > 0)
+        {
+            banBtn.Visible = false;
+            unbanBtn.Visible = true;
+        }
+        else
+        {
+            banBtn.Visible = true;
+            unbanBtn.Visible = false;
+        }
+         */
+
+        binddata(qUser.userId);
+   }
+
+    protected void banStatus(string email)
+    {
+        var dc = new DulyDBDataContext();
+
+        var banStatus = from n in dc.BannedEmails
+                        where n.email == email
                         select n;
 
         if (banStatus.Count() > 0)
@@ -97,9 +122,7 @@ public partial class Template : System.Web.UI.Page
             banBtn.Visible = true;
             unbanBtn.Visible = false;
         }
-
-        binddata(qUser.userId);
-   }
+    }
 
     /////////COPY FROM SEARCH 
 
@@ -211,13 +234,16 @@ public partial class Template : System.Web.UI.Page
                      where u.displayName == txtUsername.Text
                      select u).First();
 
-        var banStatus = from n in dc.BannedEmails
-                        where n.email == qUser.email
-                        select n;
+        var unbanUser = new BannedEmail
+        {
+            email = qUser.email
+        };
 
-        foreach (var email in banStatus)
-            dc.BannedEmails.DeleteOnSubmit(email);
+        dc.BannedEmails.Attach(unbanUser);
+        dc.BannedEmails.DeleteOnSubmit(unbanUser);
         dc.SubmitChanges();
+        banStatus(qUser.email);
+        binddata(qUser.userId);
     }
     
     protected void banUser(object sender, EventArgs e)
@@ -227,10 +253,6 @@ public partial class Template : System.Web.UI.Page
                      where u.displayName == txtUsername.Text
                      select u).First();
 
-        var banStatus = from n in dc.BannedEmails
-                  where n.email == qUser.email
-                  select n;
-
         var banUser = new BannedEmail
         {
             email = qUser.email
@@ -238,7 +260,8 @@ public partial class Template : System.Web.UI.Page
 
         dc.BannedEmails.InsertOnSubmit(banUser);
         dc.SubmitChanges();
-        
+        banStatus(qUser.email);
+        binddata(qUser.userId);
     }
     
 
