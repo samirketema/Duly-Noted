@@ -56,7 +56,9 @@
         <div class="bs-docs-header" id="content">
           <div class="container">
             <h1>What is Duly Noted?</h1>
-            <p>We are under construction. lol. don't judge us.</p>
+            <h3>Nearly everyone has either missed class, lost their notes, fallen asleep during class, etc. and when that happens, Duly Noted is their to help. 
+            Duly Noted is a website through which the students of UCF can share their class notes; furthering their education and creating a more connected community.
+            Users can upload and download notes; helping themselves and the student body. </h3>
           </div>
         </div>
     </div>
