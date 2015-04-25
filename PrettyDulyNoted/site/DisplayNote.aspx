@@ -23,6 +23,7 @@
         </style>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/bubble.css">
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
@@ -59,6 +60,8 @@
                 <div id="divNote" runat="server" class="well">
                     <h1><asp:Label ID ="lblTitle" runat="server" /></h1>
                     <h5><asp:Label ID="lblNoteDate" runat="server" /></h5>
+                </div>
+                <div id ="divNote2" runat="server" class="well">
                     <table>
                         <tr>
                             <td ><h6>Uploaded by:</h6></td>
@@ -134,7 +137,7 @@
                 <!-- THIS IS THE COMMENT PART -->
                 <div id="divComment" runat="server">
                     <h3>Comments:</h3>                    
-                    <asp:Label ID="lblComment" runat="server" Width="70%" BackColor="#CCFFFF" ForeColor="Black" BorderColor="#CCFFFF" BorderStyle="Solid" BorderWidth="10px"></asp:Label>
+                    <asp:Label ID="lblComment" runat="server" Width="70%" ForeColor="Black"></asp:Label>
                     <br />
                     <br />
                     <p> Leave a comment:</p>

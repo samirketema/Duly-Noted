@@ -405,22 +405,22 @@ public partial class DisplayNote : System.Web.UI.Page
             //you will see your own messages on the right side
             if (Session["dulyNoted"] != null && (c.userId == int.Parse(Session["dulyNoted"].ToString())) )
             {
-                lblComment.Text += "<font size=-2>";
+                lblComment.Text += "<br /><br /><font size=-2>";
                 lblComment.Text += "<span style='float:right'>commented by " + "<font color='red'>You</font>";
                 lblComment.Text += " | " + c.cTime.ToShortDateString();
                 lblComment.Text += " @ " + c.cTime.ToShortTimeString();
-                lblComment.Text += "</span></font><br />";
-                lblComment.Text += "<span style='float:right'>" + c.cMsg + " </span> <br /><br />";
+                lblComment.Text += "</span></font><br /><br />";
+                lblComment.Text += "<span style='float:right'><p class='triangle-right right'>" + c.cMsg + " </p></span> <br /><br /><br /><br />";
             }
                 
             else
             {
-                lblComment.Text += "<font size=-2>";
-                lblComment.Text += "commented by " + "<font color='red'>" + c.uName + "</font>";
+                lblComment.Text += "<br /><br /><font size=-2>";
+                lblComment.Text += "<span style='float:left'>commented by " + "<font color='red'>" + c.uName + "</font>";
                 lblComment.Text += " | " + c.cTime.ToShortDateString();
                 lblComment.Text += " @ " + c.cTime.ToShortTimeString();
-                lblComment.Text += "</font><br />";
-                lblComment.Text += c.cMsg + "<br /><br />";
+                lblComment.Text += "</span></font><br /><br />";
+                lblComment.Text += "<span style='float:left'><p class='triangle-right left'>" + c.cMsg + "</p></span> <br /><br /><br /><br /><br />";
             }
 
         }
