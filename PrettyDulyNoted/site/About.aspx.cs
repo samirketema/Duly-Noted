@@ -47,4 +47,8 @@ public partial class About : System.Web.UI.Page
 
 
 
+    protected void lnkAdmin_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/ACPLogin.aspx");
+    }
 }

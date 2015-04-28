@@ -3,7 +3,6 @@ http://dulynoted-001-site1.smarterasp.net/
 
 --- domain -----------------------
 dulynoted.ml
-dulynote.tk (dot.tk lost my old domain)
  
 ----FTP server-----------------------
 host:		ftp.Smarterasp.net
