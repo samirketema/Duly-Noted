@@ -66,9 +66,14 @@ public partial class Member : System.Web.UI.Page
         var note = from n in dc.Notes
                    where n.userId == query.userId
                    select n;
-
+        
+        var comment = from c in dc.Comments
+                   where c.userId == query.userId
+                   select c;
+                   
         //delete note
         dc.Notes.DeleteAllOnSubmit(note);
+        dc.Comments.DeleteAllOnSubmit(comment);
 
         //delete account
         dc.Users.DeleteOnSubmit(query);
