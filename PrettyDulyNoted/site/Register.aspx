@@ -119,25 +119,16 @@
 			    <div class="col-md-6">
 				    <h3 class="dark-grey">Terms and Conditions</h3>
 				    <p>
-					    By clicking on "Register" you agree to Duly Noted's Terms and Conditions. blah blah blah blah blah blah blah blah blah blah blah blah.
-				    </p>
-				    <p>
-					    Blah blah blah blah text about how you shouldn't misuse the website. blah blah blah blah blah blah blah blah blah blah blah blah.
-				    </p>
-				    <p>
-					    But either way, it's not our fault. blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah text filler text.
-				    </p>
-				    <p>
-					    Blah. Hah. blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.
-				    </p>
-                    <p>
-					    Blah. Hah. blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.
-				    </p>
-                    <p>
-					    Blah. Hah. blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.
-				    </p>
-                    <p>
-					    Blah. Hah. blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.
+				    	1. a)Duly Noted is not associated with the University of Central Florida. b)Duly Noted is for educational purposes only.  
+                        		2. a)Duly Noted is not responsible for any innaproriate content loaded by users. 
+                            		b)Duly Noted reserves the right to delete users who do upload inappropriate materials. 
+                            		c)If the material in question involves illegal or unethical activites (i.e. plagarism) the proper authorities will be contacted and all possible charges may be pursued.  
+                        		3. Bernie Sanders twenty sixteen.  
+                        		4. a)Do not feed the bears.
+                            		b)Bears do not want to hug.  
+                        		5. Restroom is for customers only.  
+                			6. Duly Noted reserves the right to remove any content from the site without explanation.  
+                			7. Violation of these terms and conditions will result in nothing really but the beginning of this sounded good and ominous.
 				    </p>
 				
                     <asp:Button Text="Register" runat="server" OnClick="RegisterUser" Width="160px" ValidationGroup="grpSubmit" CssClass="btn btn-primary"/>
