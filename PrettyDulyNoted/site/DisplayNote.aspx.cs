@@ -159,6 +159,27 @@ public partial class DisplayNote : System.Web.UI.Page
         }
     }
 
+    protected void DeleteNote ()
+    {
+        int nId = int.Parse(Request.QueryString["Note"]);
+        var dc = new DulyDBDataContext();
+
+        var comment = from c in dc.Comments
+                      where c.noteId == nId
+                      select c;
+
+        //delete the comments
+        dc.Comments.DeleteAllOnSubmit(comment);
+
+        //delete the note from the database
+        dc.Notes.DeleteOnSubmit(dc.Notes.Single(n => n.noteId == nId));
+        dc.SubmitChanges();
+
+        //return to member page
+        Response.Redirect("~/Member.aspx");
+        
+    }
+
     protected void btnDownload_Click( object sender, EventArgs e)
     {
         if (Session["dulyNoted"] != null)
@@ -308,15 +329,7 @@ public partial class DisplayNote : System.Web.UI.Page
 
     protected void btnDel_Click(object sender, EventArgs e)
     {
-        int nId = int.Parse(Request.QueryString["Note"]);
-        var dc = new DulyDBDataContext();
-
-        //delete the note from the database
-        dc.Notes.DeleteOnSubmit(dc.Notes.Single(n => n.noteId == nId));
-        dc.SubmitChanges();
-
-        //return to member page
-        Response.Redirect("~/Member.aspx");
+        DeleteNote();
     }
 
     protected void ibtnPreview_Click(object sender, ImageClickEventArgs e)

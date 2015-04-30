@@ -341,6 +341,15 @@ public partial class Member : System.Web.UI.Page
         int nId = int.Parse(GridView1.DataKeys[e.RowIndex].Value.ToString());
 
         var dc = new DulyDBDataContext();
+
+        //get all comments  
+        var comment = from c in dc.Comments
+                      where c.noteId == nId
+                      select c;
+        //delete the comments
+        dc.Comments.DeleteAllOnSubmit(comment);
+
+
 /*      This is one way to get the note to delete
         var note = (from n in dc.Notes
                     where n.noteId == nId
@@ -351,9 +360,7 @@ public partial class Member : System.Web.UI.Page
 
         //same as above but using LAMBDA
         dc.Notes.DeleteOnSubmit(dc.Notes.Single(n => n.noteId == nId));
-
         dc.SubmitChanges();
-
         BindData();
     }
 
