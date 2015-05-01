@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB_9BD964_DulyNoted" Class="DulyDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=SQL5012.Smarterasp.net;Initial Catalog=DB_9BD964_DulyNoted;User ID=DB_9BD964_DulyNoted_admin" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="dulyDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Admins" Member="Admins">
+    <Type Name="Admin">
+      <Column Name="adminId" Type="System.String" DbType="NChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="NChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NChar(75)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NChar(75) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="NChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="firstName" Type="System.String" DbType="NChar(75) NOT NULL" CanBeNull="false" />
+      <Column Name="lastName" Type="System.String" DbType="NChar(75) NOT NULL" CanBeNull="false" />
+      <Column Name="displayName" Type="System.String" DbType="NChar(75) NOT NULL" CanBeNull="false" />
+      <Column Name="createdDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="lastLoginDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="salt" Type="System.String" DbType="NChar(75)" CanBeNull="true" />
+      <Association Name="User_Comment" Member="Comments" ThisKey="userId" OtherKey="userId" Type="Comment" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BannedEmails" Member="BannedEmails">
+    <Type Name="BannedEmail">
+      <Column Name="email" Type="System.String" DbType="NChar(75) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Comments" Member="Comments">
+    <Type Name="Comment">
+      <Column Name="commentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="noteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="commentedTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="comment" Member="comment1" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="User_Comment" Member="User" ThisKey="userId" OtherKey="userId" Type="User" IsForeignKey="true" />
+      <Association Name="Note_Comment" Member="Note" ThisKey="noteId" OtherKey="noteId" Type="Note" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Courses" Member="Courses">
+    <Type Name="Course">
+      <Column Name="courseId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="subject" Type="System.String" DbType="NChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="courseNumber" Type="System.String" DbType="NChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="coursename" Type="System.String" DbType="NChar(75) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PasswordRecoveries" Member="PasswordRecoveries">
+    <Type Name="PasswordRecovery">
+      <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="validCode" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NChar(75) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Professors" Member="Professors">
+    <Type Name="Professor">
+      <Column Name="email" Type="System.String" DbType="NVarChar(75) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="firstName" Type="System.String" DbType="NVarChar(75) NOT NULL" CanBeNull="false" />
+      <Column Name="lastName" Type="System.String" DbType="NVarChar(75) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sections" Member="Sections">
+    <Type Name="Section">
+      <Column Name="sId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="courseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sectionNumber" Type="System.String" DbType="NChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="professorEmail" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserActivations" Member="UserActivations">
+    <Type Name="UserActivation">
+      <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="activationCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VotingCheck" Member="VotingChecks">
+    <Type Name="VotingCheck">
+      <Column Name="vId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="noteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="voted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="flagged" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Notes" Member="Notes">
+    <Type Name="Note">
+      <Column Name="noteId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="numberTimesFlagged" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="upVoteCounter" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="downVoteCounter" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="source" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="preview" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="noteDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="uploadDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Note_Comment" Member="Comments" ThisKey="noteId" OtherKey="noteId" Type="Comment" />
+    </Type>
+  </Table>
+</Database>

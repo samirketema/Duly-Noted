@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="About.aspx.cs" Inherits="About" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Search.aspx.cs" Inherits="Search" %>
 
 
 <!doctype html>
@@ -25,9 +25,11 @@
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+
     </head>
     <body>
-    <form id="form1" role="form" runat="server">
+    <form id="form1" runat="server">
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -46,19 +48,42 @@
                 <li><asp:LinkButton ID="lnkLogin" runat="server" OnClick="lnkLogin_Click">Login</asp:LinkButton></li>
                 <li><asp:LinkButton ID="lnkLogout" runat="server" OnClick="lnkLogout_Click" Visible="False">Logout</asp:LinkButton></li>
               </ul>
-
-            
             </div><!--/.navbar-collapse -->
           </div>
         </div>
+        <!-- Docs page layout -->
 
     <div class="container">
         <div class="bs-docs-header" id="content">
           <div class="container">
-            <h1>What is Duly Noted?</h1>
-            <h3>Nearly everyone has either missed class, lost their notes, fallen asleep during class, etc. and when that happens, Duly Noted is their to help.<br />
-                Duly Noted is a website through which the students of UCF can share their class notes; furthering their education and creating a more connected community.<br />
-                Users can upload and download notes; helping themselves and the student body. </h3>
+              <h1>Search for Notes</h1>
+              <asp:Label ID="lblError" runat="server" ForeColor="Red"/>
+              <br />
+                <div class="form-group col-md-2">
+                    <label>Subject </label>
+                    <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" placeholder="Example: COP" AutoPostBack="True" OnTextChanged="check_Subject"/>
+                    <br />
+
+                    <label>Course Number </label>
+                    <asp:DropDownList ID="ddlCourseNumber" runat="server" Enabled="False" OnSelectedIndexChanged="course_select" AutoPostBack="True" CssClass="form-control">
+                        <asp:ListItem Value="">Course Number</asp:ListItem>
+                    </asp:DropDownList>           
+
+                    <label>Section </label>
+                    <asp:DropDownList ID="ddlSection" runat="server" Enabled="False" OnSelectedIndexChanged="section_select" AutoPostBack="True" CssClass="form-control">
+                            <asp:ListItem Value="">Section Number</asp:ListItem>
+                    </asp:DropDownList>
+                    <br />
+                    <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" Enabled="false" CssClass="btn btn-default btn-sm"/>
+
+                  </div>
+
+
+
+              <div id ="divResult" runat="server">
+
+                    <!-- SEARCH RESULT TABLE HERE-->
+              </div>
           </div>
         </div>
     </div>
@@ -66,13 +91,14 @@
       <hr>
 
       <footer>
-        <p>&copy; <asp:LinkButton ID="lnkAdmin" runat="server" Text="Duly Noted 2015" EnableTheming="True" EnableViewState="False" ForeColor="Black" OnClick="lnkAdmin_Click"/></p>
+        <p>&copy; Duly Noted 2015</p>
       </footer>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-      <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-      <script src="js/vendor/bootstrap.min.js"></script>
-      <script src="js/main.js"></script>
+    <!-- /container -->        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+
     </form>
     </body>
 </html>
-
